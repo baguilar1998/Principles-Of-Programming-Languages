@@ -8,33 +8,33 @@ mock programming lanaguage for the class and produces as output all
 the extracted tokens displayed line by line.
 
 # BNF Grammar
-⟨letter⟩ → a | b | ... | z | A | B | ... | Z 
-⟨digit⟩ → 0 | 1 | ... | 9 
-⟨id⟩ → ⟨letter⟩ {⟨letter⟩ | ⟨digit⟩} 
-⟨int⟩ → {⟨digit⟩}+ 
-⟨float⟩ → {⟨digit⟩}+ "." {⟨digit⟩}+ 
-⟨floatE⟩ → ⟨float⟩ (e|E) [+|−] {⟨digit⟩}+ 
-⟨add⟩ → + 
-⟨sub⟩ → − 
-⟨mul⟩ → * 
-⟨div⟩ → / 
-⟨or⟩ → "||" 
-⟨and⟩ → "&&" 
-⟨inv⟩ → ! 
-⟨lt⟩ → "<" 
-⟨le⟩ → "<=" 
-⟨gt⟩ → ">" 
-⟨ge⟩ → ">=" 
-⟨eq⟩ → "==" 
-⟨neq⟩ → "!=" 
-⟨assign⟩ → = 
-⟨LParen⟩ → "(" 
-⟨RParen⟩ → ")" 
-⟨LBrace⟩ → "{" 
-⟨RBrace⟩ → "}" 
-⟨LBracket⟩ → "[" 
-⟨RBracket⟩ → "]" 
-⟨semicolon⟩ → ";" 
+⟨letter⟩ → a | b | ... | z | A | B | ... | Z  <br />
+⟨digit⟩ → 0 | 1 | ... | 9 <br />
+⟨id⟩ → ⟨letter⟩ {⟨letter⟩ | ⟨digit⟩} <br /> 
+⟨int⟩ → {⟨digit⟩}+  <br />
+⟨float⟩ → {⟨digit⟩}+ "." {⟨digit⟩}+ <br /> 
+⟨floatE⟩ → ⟨float⟩ (e|E) [+|−] {⟨digit⟩}+ <br />
+⟨add⟩ → + <br />
+⟨sub⟩ → − <br />
+⟨mul⟩ → * <br />
+⟨div⟩ → / <br />
+⟨or⟩ → "||" <br />
+⟨and⟩ → "&&" <br />
+⟨inv⟩ → ! <br />
+⟨lt⟩ → "<" <br />
+⟨le⟩ → "<=" <br />
+⟨gt⟩ → ">" <br />
+⟨ge⟩ → ">=" <br />
+⟨eq⟩ → "==" <br />
+⟨neq⟩ → "!=" <br />
+⟨assign⟩ → = <br />
+⟨LParen⟩ → "(" <br />
+⟨RParen⟩ → ")" <br />
+⟨LBrace⟩ → "{" <br />
+⟨RBrace⟩ → "}" <br />
+⟨LBracket⟩ → "[" <br />
+⟨RBracket⟩ → "]" <br />
+⟨semicolon⟩ → ";" <br />
 ⟨comma⟩ → "," 
 
 ⟨letter⟩ and ⟨digit⟩ are not token categories by themselves; rather, they are auxiliary categories to assist the definitions of the tokens ⟨id⟩, ⟨int⟩, ⟨float⟩, ⟨floatE⟩. 
