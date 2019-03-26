@@ -109,45 +109,76 @@ public abstract class Parser extends LexArith{
 	}
 	
 	/**
-	 * FIX SLIST
+	 * Top Down Parser for <S List>
 	 */
 	public static SList sList() {
 		LinkedList<Statement> sList = new LinkedList<Statement>();
 		Statement s;
-		if (state == State.Id) {
-			s = assignment();
+		while(state == State.Id || state == State.Keyword_if || state == State.Keyword_while
+				|| state == State.LBrace || state == State.Keyword_print) {
+			s = statement();
+			sList.add(s);
 		}
 		return new SList(sList);
 	}
 	
-	public static Assignment assignment() {
-		Var v = var();
+	public static Statement statement() {
+		if (state == State.Id) {
+			
+		} else if (state == State.Keyword_if) {
+			
+		} else if (state == State.Keyword_while) {
+			
+		} else if (state == State.LBrace) {
+		
+		} else if (state == State.Keyword_print) {
+			
+		} else {
+			errorMsg(5);
+		}
 		return null;
 	}
-	
-	/***
-	 * FIX THIS PARSER
-	 */
-	public static Var var() {
-		if(state == State.Id) {
-			String id = t;
+	public static Assignment assignment() {
+		Var v = var();
+		if (state == State.Eq) {
 			getToken();
-			if (state == State.LBracket) {
-				return arrayVar();
+			RightSide rs = rightSide();
+			if(state == State.Semicolon) {
+				getToken();
 			} else {
-				return new IdVar(id);
+				//EXPECTED ;
+				errorMsg(5);
 			}
+		}else {
+			// EXPECTED =
+			errorMsg(5);
 		}
 		return null;
 	}
 	
-	public static IdVar idVar() {
+	/***
+	 * Top Down Parser for <var>
+	 */
+	public static Var var() {
 		String id = t;
 		getToken();
+		if(state == State.LBracket) {
+			return arrayVar();
+			
+		} else if (state == State.Keyword_returnVal) {
+			getToken();
+			return new ReturnVal();
+		}
+		
 		return new IdVar(id);
 	}
 	
 	public static ArrayVar arrayVar() {
+		getToken();
+		return null;
+	}
+	
+	public static RightSide rightSide() {
 		return null;
 	}
 	/*public static AssignmentList assignmentList()

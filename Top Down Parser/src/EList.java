@@ -1,8 +1,8 @@
 import java.util.*;
 public class EList {
-	LinkedList<E> eList;
+	LinkedList<EItem> eList;
 	
-	public EList(LinkedList<E> e) {
+	public EList(LinkedList<EItem> e) {
 		eList = e;
 	}
 }
