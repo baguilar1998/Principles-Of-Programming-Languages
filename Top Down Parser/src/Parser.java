@@ -99,23 +99,57 @@ public abstract class Parser extends LexArith{
 			if(state == State.RBrace) {
 				getToken();
 				return new Body(sList);
+			} else {
+				errorMsg(5);
+			}
+		} else {
+			errorMsg(5);
+		}
+		return null;
+	}
+	
+	/**
+	 * FIX SLIST
+	 */
+	public static SList sList() {
+		LinkedList<Statement> sList = new LinkedList<Statement>();
+		Statement s;
+		if (state == State.Id) {
+			s = assignment();
+		}
+		return new SList(sList);
+	}
+	
+	public static Assignment assignment() {
+		Var v = var();
+		return null;
+	}
+	
+	/***
+	 * FIX THIS PARSER
+	 */
+	public static Var var() {
+		if(state == State.Id) {
+			String id = t;
+			getToken();
+			if (state == State.LBracket) {
+				return arrayVar();
+			} else {
+				return new IdVar(id);
 			}
 		}
 		return null;
 	}
 	
-	public static SList sList() {
-		Statement s;
-		if (state == State.Id) {
-			s = assignment();
-		}
-		return null;
+	public static IdVar idVar() {
+		String id = t;
+		getToken();
+		return new IdVar(id);
 	}
 	
-	public static Assignment assignment() {
+	public static ArrayVar arrayVar() {
 		return null;
 	}
-	
 	/*public static AssignmentList assignmentList()
 	
 	// <assignment list> --> { <assignment> }+
