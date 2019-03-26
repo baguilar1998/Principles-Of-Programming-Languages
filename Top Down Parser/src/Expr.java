@@ -1,9 +1,9 @@
 import java.util.*;
 public class Expr extends Primary{
 	
-	LinkedList<BoolTerm> expr;
+	LinkedList<BoolTermItem> expr;
 	
-	Expr(LinkedList<BoolTerm> ex){
+	Expr(LinkedList<BoolTermItem> ex){
 		expr = ex;
 	}
 	
@@ -11,7 +11,7 @@ public class Expr extends Primary{
 		IO.displayln(indent + indent.length() + " <expr>");
 		System.out.println(indent + indent.length() + " <expr>");
 		String indent1 = indent + " ";
-		for(BoolTerm bt: expr)
+		for(BoolTermItem bt: expr)
 			bt.printParseTree(indent1);
 	}
 }

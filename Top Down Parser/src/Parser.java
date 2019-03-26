@@ -124,7 +124,7 @@ public abstract class Parser extends LexArith{
 	
 	public static Statement statement() {
 		if (state == State.Id) {
-			
+			return assignment();
 		} else if (state == State.Keyword_if) {
 			
 		} else if (state == State.Keyword_while) {
@@ -138,6 +138,7 @@ public abstract class Parser extends LexArith{
 		}
 		return null;
 	}
+	
 	public static Assignment assignment() {
 		Var v = var();
 		if (state == State.Eq) {
@@ -179,53 +180,32 @@ public abstract class Parser extends LexArith{
 	}
 	
 	public static RightSide rightSide() {
+		if(state == State.Keyword_new) {
+			
+		} else {
+			return exprRightSide();
+		}
 		return null;
 	}
-	/*public static AssignmentList assignmentList()
 	
-	// <assignment list> --> { <assignment> }+
-	
-	{
-		LinkedList<Assignment> assignmentList = new LinkedList<Assignment>();
-
-		Assignment assignment = assignment();
-		assignmentList.add(assignment);
-		while ( state == State.Id )
-		{
-			assignment = assignment();
-			assignmentList.add(assignment); // append "assignment" to the end of "assignmentList"
-		}
-		return new AssignmentList(assignmentList);
+	public static ExprRightSide exprRightSide() {
+		Expr ex = expr();
+		return new ExprRightSide(ex);
 	}
-
-	public static Assignment assignment()
 	
-	// <assignment> --> <id> = <E> ";"
-	
-	{
-		if ( state == State.Id )
-		{
-			String id = t;
+	public static Expr expr() {
+		LinkedList<BoolTermItem> boolTermList = new LinkedList<BoolTermItem>();
+		//ADD A SINGLE BOOL TERM
+		while (state == State.Or) {
 			getToken();
-			if ( state == State.Assign )
-			{
-				getToken();
-				E e = E();
-				if ( state == State.Semicolon )
-				{
-					getToken();
-					return new Assignment(id, e);
-				}
-				else
-					errorMsg(4);
-			}
-			else
-				errorMsg(3);
+			// ADD MULTIPLE BOOL TERMS WITH OR
 		}
-		else
-			errorMsg(5);
-		return null;
+		return new Expr(boolTermList);
+		
 	}
+	
+
+	/*
 
 	public static E E()
 

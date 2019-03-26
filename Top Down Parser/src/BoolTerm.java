@@ -1,9 +1,9 @@
 import java.util.*;
 public class BoolTerm {
 	
-	LinkedList<BoolPrimary> boolPrimary;
+	LinkedList<BoolPrimaryItem> boolPrimary;
 	
-	BoolTerm(LinkedList<BoolPrimary> bp){
+	BoolTerm(LinkedList<BoolPrimaryItem> bp){
 		boolPrimary = bp;
 	}
 	
@@ -11,7 +11,7 @@ public class BoolTerm {
 		IO.displayln(indent + indent.length() + " <boolTerm>");
 		System.out.println(indent + indent.length() + " <boolTerm>");
 		String indent1 = indent + " ";
-		for(BoolPrimary bp : boolPrimary)
+		for(BoolPrimaryItem bp : boolPrimary)
 			bp.printParseTree(indent1);
 	}
 }

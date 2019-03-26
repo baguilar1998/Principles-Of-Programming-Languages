@@ -1,4 +1,5 @@
 
-public abstract class Primary {
+public abstract class ETermItem {
+	EItem item;
 	abstract void printParseTree(String indent);
 }

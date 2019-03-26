@@ -1,8 +1,8 @@
 import java.util.*;
 public class EItem{
-	LinkedList<Term> termList;
+	LinkedList<TermItem> termList;
 	
-	EItem(LinkedList<Term> term){
+	EItem(LinkedList<TermItem> term){
 		termList = term;
 	}
 	
@@ -10,7 +10,7 @@ public class EItem{
 		IO.displayln(indent + indent.length() + " <E>");
 		System.out.println(indent + indent.length() + " <E>");
 		String indent1 = indent + " ";
-		for(Term t : termList)
+		for(TermItem t : termList)
 			t.printParseTree(indent1);
 	}
 }

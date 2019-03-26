@@ -1,4 +1,4 @@
 
-public abstract class Primary {
+public abstract class CompOp {
 	abstract void printParseTree(String indent);
 }

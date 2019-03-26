@@ -1,9 +1,9 @@
 import java.util.*;
 public class BoolPrimary {
 
-	LinkedList<EItem> eList;
+	LinkedList<ETermItem> eList;
 	
-	BoolPrimary(LinkedList<EItem> e){
+	BoolPrimary(LinkedList<ETermItem> e){
 		eList = e;
 	}
 	
@@ -11,7 +11,7 @@ public class BoolPrimary {
 		IO.displayln(indent + indent.length() + " <boolPrimary>");
 		System.out.println(indent + indent.length() + " <boolPrimary>");
 		String indent1 = indent + " ";
-		for(EItem e : eList)
+		for(ETermItem e : eList)
 			e.printParseTree(indent1);
 	}
 }
