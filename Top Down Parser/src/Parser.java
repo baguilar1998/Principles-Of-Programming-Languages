@@ -140,13 +140,29 @@ public abstract class Parser extends LexArith{
 		} else if (state == State.LBrace) {
 			return block();
 		} else if (state == State.Keyword_print) {
-			
+			return print();
 		} else {
 			errorMsg(5);
 		}
 		return null;
 	}
 	
+	/**
+	 * Top Down Parser for <print>
+	 */
+	public static Print print() {
+		getToken();
+		Expr expr = expr();
+		if(state == State.Semicolon) {
+			getToken();
+			return new Print(expr);
+		}
+		return null;
+	}
+	
+	/**
+	 * Top Down Parser for <block>
+	 */
 	public static Block block() {
 		getToken();
 		SList s = sList();
@@ -159,6 +175,9 @@ public abstract class Parser extends LexArith{
 		return null;
 	}
 	
+	/**
+	 * Top Down Parser for <while>
+	 */
 	public static While While() {
 		getToken();
 		if(state == State.LParen) {
@@ -176,6 +195,10 @@ public abstract class Parser extends LexArith{
 		}
 		return null;
 	}
+	
+	/**
+	 * Top Down Parser for <cond>
+	 */
 	public static Cond cond() {
 		getToken();
 		if(state == State.LParen) {
@@ -452,7 +475,6 @@ public abstract class Parser extends LexArith{
 
 		getToken();
 
-		// AssignmentList assignmentList = assignmentList(); // build a parse tree
 		FuncDefList functionDefinitionList = funcDefList();
 		functionDefinitionList.printParseTree("");
 		//if ( ! t.isEmpty() )
