@@ -290,7 +290,8 @@ public abstract class Parser extends LexArith{
 	
 	public static Primary primary() {
 		if (state == State.Id) {
-			return var();
+			Var v = var();
+			return new VarPrimary(v);
 		} else if (state == State.Int) {
 			Int i = new Int(Integer.parseInt(t));
 			getToken();

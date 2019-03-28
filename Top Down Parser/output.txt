@@ -24,9 +24,10 @@
          9 <boolTerm>
           10 <boolPrimary>
            11 <E>
-            12 <Term>
-             13 <var>
-              14 <id var>cs316
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var>cs316
              13 *
              13 <primary> 
               14 - 
@@ -36,21 +37,24 @@
               14 - 
               14 <primary> 12
              13 *
-             13 <var>
-              14 <id var>abc
+             13 <primary>
+              14 <var>
+               15 <id var>abc
             12 +
-            12 <Term>
-             13 <var>
-              14 <id var>test1
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var>test1
              13 /
              13 <primary> 0.069
              13 *
              13 <primary> 123
              13 /
-             13 <var>
-              14 <id var>abcd
+             13 <primary>
+              14 <var>
+               15 <id var>abcd
             12 -
-            12 <Term>
+            12 <term>
              13 <primary> 
               14 - 
               14 <primary> 
@@ -59,19 +63,22 @@
                 16 - 
                 16 <primary> 5
             12 +
-            12 <Term>
+            12 <term>
               14 <expr>
                15 <boolTerm>
                 16 <boolPrimary>
                  17 <E>
-                  18 <Term>
-                   19 <var>
-                    20 <id var>A
+                  18 <term>
+                   19 <primary>
+                    20 <var>
+                     21 <id var>A
                   18 -
-                  18 <Term>
-                   19 <var>
-                    20 <id var>B
+                  18 <term>
+                   19 <primary>
+                    20 <var>
+                     21 <id var>B
                   18 +
-                  18 <Term>
-                   19 <var>
-                    20 <id var>C
+                  18 <term>
+                   19 <primary>
+                    20 <var>
+                     21 <id var>C
