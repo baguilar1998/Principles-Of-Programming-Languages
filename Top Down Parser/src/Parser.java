@@ -31,7 +31,7 @@ public abstract class Parser extends LexArith{
 	 */
 	public static Header header() {
 		FuncName funcName = funcName();
-		ParameterList pList = parameterList();
+		ParameterList pList;
 		if( state == State.LParen) {
 			getToken();
 			pList = parameterList();
@@ -92,6 +92,10 @@ public abstract class Parser extends LexArith{
 		return null;
 	}
 	
+	/**
+	 * 
+	 * Top Down Parser for <body>
+	 */
 	public static Body body() {
 		if(state == State.LBrace) {
 			getToken();
@@ -122,15 +126,19 @@ public abstract class Parser extends LexArith{
 		return new SList(sList);
 	}
 	
+
+	/**
+	 * Top Down Parser for <statement>
+	 */
 	public static Statement statement() {
 		if (state == State.Id) {
 			return assignment();
 		} else if (state == State.Keyword_if) {
-			
+			return cond();
 		} else if (state == State.Keyword_while) {
-			
+			return While();
 		} else if (state == State.LBrace) {
-		
+			return block();
 		} else if (state == State.Keyword_print) {
 			
 		} else {
@@ -139,6 +147,61 @@ public abstract class Parser extends LexArith{
 		return null;
 	}
 	
+	public static Block block() {
+		getToken();
+		SList s = sList();
+		if(state == State.RBrace) {
+			getToken();
+			return new Block(s);
+		} else {
+			//EXPECTED RBRACE
+		}
+		return null;
+	}
+	
+	public static While While() {
+		getToken();
+		if(state == State.LParen) {
+			getToken();
+			Expr expr = expr();
+			if( state == State.RParen) {
+				getToken();
+				Statement s = statement();
+				return new While(expr,s);
+			} else {
+				//EXPECTED RPAREN
+			}
+		} else {
+			// EXPECTED LPAREN
+		}
+		return null;
+	}
+	public static Cond cond() {
+		getToken();
+		if(state == State.LParen) {
+			getToken();
+			Expr expr = expr();
+			if(state == State.RParen) {
+				getToken();
+				Statement s1 = statement();
+				if(state == State.Keyword_else) {
+					getToken();
+					Statement s2 = statement();
+					return new Cond(expr,s1,s2);
+				} else {
+					return new Cond(expr,s1);
+				}
+			} else {
+				//EXPECTED RPAREN
+			}
+		} else {
+			//EXPECTED LPAREN
+		}
+		return null;
+	}
+	/**
+	 * Top Down Parser for <assignment>
+	 */
 	public static Assignment assignment() {
 		Var v = var();
 		if (state == State.Assign) {
@@ -175,11 +238,19 @@ public abstract class Parser extends LexArith{
 		return new IdVar(id);
 	}
 	
+
+	/**
+	 * Top Down Parser for <array var>
+	 */
 	public static ArrayVar arrayVar() {
 		getToken();
 		return null;
 	}
 	
+
+	/**
+	 * Top Down Parser for <right side>
+	 */
 	public static RightSide rightSide() {
 		if(state == State.Keyword_new) {
 			
@@ -189,11 +260,19 @@ public abstract class Parser extends LexArith{
 		return null;
 	}
 	
+
+	/**
+	 * Top Down Parser for <expr right side>
+	 */
 	public static ExprRightSide exprRightSide() {
 		Expr ex = expr();
 		return new ExprRightSide(ex);
 	}
 	
+
+	/**
+	 * Top Down Parser for <expr>
+	 */
 	public static Expr expr() {
 		LinkedList<BoolTermItem> boolTermList = new LinkedList<BoolTermItem>();
 		BoolTerm term = boolTerm();
@@ -207,6 +286,10 @@ public abstract class Parser extends LexArith{
 		
 	}
 	
+
+	/**
+	 * Top Down Parser for <boolTerm>
+	 */
 	public static BoolTerm boolTerm() {
 		LinkedList<BoolPrimaryItem> boolPrimaryList = new LinkedList<BoolPrimaryItem>();
 		BoolPrimary primary = boolPrimary();
@@ -219,6 +302,10 @@ public abstract class Parser extends LexArith{
 		return new BoolTerm(boolPrimaryList);
 	}
 	
+
+	/**
+	 * Top Down Parser for <boolPrimary>
+	 */
 	public static BoolPrimary boolPrimary() {
 		LinkedList<ETermItem> eList = new LinkedList<ETermItem>();
 		EItem e = E();
@@ -252,6 +339,10 @@ public abstract class Parser extends LexArith{
 		return new BoolPrimary(eList);
 	}
 	
+
+	/**
+	 * Top Down Parser for <E>
+	 */
 	public static EItem E() {
 		LinkedList<TermItem> termItemList = new LinkedList<TermItem>();
 
@@ -270,6 +361,10 @@ public abstract class Parser extends LexArith{
 		return new EItem(termItemList);
 	}
 	
+
+	/**
+	 * Top Down Parser for <term>
+	 */
 	public static Term term() {
 		LinkedList<PrimaryItem> primaryItemList = new LinkedList<PrimaryItem>();
 
@@ -288,6 +383,10 @@ public abstract class Parser extends LexArith{
 		return new Term(primaryItemList);	
 	}
 	
+
+	/**
+	 * Top Down Parser for <primary>
+	 */
 	public static Primary primary() {
 		if (state == State.Id) {
 			Var v = var();
@@ -326,57 +425,6 @@ public abstract class Parser extends LexArith{
 		return null;
 	}
 
-	/*
-
-	
-
-	public static Primary primary()
-
-	// <primary> --> <id> | <int> | <float> | <floatE> | "(" <E> ")"
-
-	{
-		switch ( state )
-		{
-			case Id:
-										
-				Id id = new Id(t);
-				getToken();
-				return id;
-				
-			case Int:
-
-				Int intElem = new Int(Integer.parseInt(t));
-				getToken();
-				return intElem;
-
-			case Float: case FloatE:
-
-				Floatp floatElem = new Floatp(Float.parseFloat(t));
-				getToken();
-				return floatElem;
-
-			case LParen:
-				
-				getToken();
-				E e = E();
-				if ( state == State.RParen )
-				{
-					getToken();
-					Parenthesized paren = new Parenthesized(e);
-					return paren;
-				}
-				else
-				{
-					errorMsg(1);
-					return null;
-				}
-
-			default:
-
-				errorMsg(2);
-				return null;
-		}
-	}*/
 	
 	public static void errorMsg(int i)
 	{

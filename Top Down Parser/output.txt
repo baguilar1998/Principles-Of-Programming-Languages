@@ -1,4 +1,3 @@
-( : Syntax Error, unexpected symbol where id expected
 0 <func def list>
  1 <fun def>
   2 <header>
