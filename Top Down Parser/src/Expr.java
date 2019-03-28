@@ -8,10 +8,11 @@ public class Expr extends Primary{
 	}
 	
 	void printParseTree(String indent) {
-		IO.displayln(indent + indent.length() + " <expr>");
-		System.out.println(indent + indent.length() + " <expr>");
 		String indent1 = indent + " ";
+		IO.displayln(indent1 + indent1.length() + " <expr>");
+		System.out.println(indent1 + indent1.length() + " <expr>");
+		String indent2 = indent1 + " ";
 		for(BoolTermItem bt: expr)
-			bt.printParseTree(indent1);
+			bt.printParseTree(indent2);
 	}
 }

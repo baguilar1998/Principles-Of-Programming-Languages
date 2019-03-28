@@ -146,6 +146,7 @@ public abstract class Parser extends LexArith{
 			RightSide rs = rightSide();
 			if(state == State.Semicolon) {
 				getToken();
+				return new Assignment(v,rs);
 			} else {
 				//EXPECTED ;
 				errorMsg(5);
@@ -296,12 +297,26 @@ public abstract class Parser extends LexArith{
 			return i;
 		} else if (state == State.Float) {
 			FloatP f = new FloatP(Float.parseFloat(t));
+			getToken();
+			return f;
 		} else if (state == State.FloatE) {
-			
+			FloatP f = new FloatP(Float.parseFloat(t));
+			getToken();
+			return f;
 		} else if (state == State.LParen) {
-			
+			getToken();
+			Expr expr = expr();
+			if (state == State.RParen) {
+				getToken();
+				return expr;
+			} else {
+				errorMsg(5);
+				return null;
+			}
 		} else if (state == State.Sub) {
-			
+			getToken();
+			Primary p = primary();
+			return new NegPrimary(p);
 		} else if (state == State.Neq) {
 			
 		} else {
@@ -391,10 +406,10 @@ public abstract class Parser extends LexArith{
 		// AssignmentList assignmentList = assignmentList(); // build a parse tree
 		FuncDefList functionDefinitionList = funcDefList();
 		functionDefinitionList.printParseTree("");
-		if ( ! t.isEmpty() )
-			errorMsg(5);
-		else if ( ! errorFound )
-			functionDefinitionList.printParseTree(""); // print the parse tree in linearly indented form in argv[1] file
+		//if ( ! t.isEmpty() )
+			//errorMsg(5);
+		//else if ( ! errorFound )
+			//functionDefinitionList.printParseTree(""); // print the parse tree in linearly indented form in argv[1] file
 
 		closeIO();
 	}
