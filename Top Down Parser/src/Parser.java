@@ -141,7 +141,7 @@ public abstract class Parser extends LexArith{
 	
 	public static Assignment assignment() {
 		Var v = var();
-		if (state == State.Eq) {
+		if (state == State.Assign) {
 			getToken();
 			RightSide rs = rightSide();
 			if(state == State.Semicolon) {
@@ -195,61 +195,124 @@ public abstract class Parser extends LexArith{
 	
 	public static Expr expr() {
 		LinkedList<BoolTermItem> boolTermList = new LinkedList<BoolTermItem>();
-		//ADD A SINGLE BOOL TERM
+		BoolTerm term = boolTerm();
+		boolTermList.add(new SingleBoolTermItem(term));
 		while (state == State.Or) {
 			getToken();
-			// ADD MULTIPLE BOOL TERMS WITH OR
+			term = boolTerm();
+			boolTermList.add(new OrBoolTermItem(term));
 		}
 		return new Expr(boolTermList);
 		
 	}
 	
-
-	/*
-
-	public static E E()
-
-	// <E> --> <term> { (+|-) <term> }
-
-	{
+	public static BoolTerm boolTerm() {
+		LinkedList<BoolPrimaryItem> boolPrimaryList = new LinkedList<BoolPrimaryItem>();
+		BoolPrimary primary = boolPrimary();
+		boolPrimaryList.add(new SingleBoolPrimaryItem(primary));
+		while (state == State.Ampersand) {
+			getToken();
+			primary =  boolPrimary();
+			boolPrimaryList.add(new AndBoolPrimaryItem(primary));
+		}
+		return new BoolTerm(boolPrimaryList);
+	}
+	
+	public static BoolPrimary boolPrimary() {
+		LinkedList<ETermItem> eList = new LinkedList<ETermItem>();
+		EItem e = E();
+		eList.add(new SingleEItem(e));
+		while (state == State.Ge || state == State.Gt || state == State.Le ||
+				state == State.Lt || state == State.Eq || state == State.Neq) {
+			State op = state;
+			CompOp operation;
+			getToken();
+			e = E();
+			if(op == State.Ge) {
+				operation = new Ge();
+				eList.add(new CompOpEItem(e,operation));
+			} else if(op == State.Gt) {
+				operation = new Gt();
+				eList.add(new CompOpEItem(e,operation));
+			} else if(op == State.Le) {
+				operation = new Le();
+				eList.add(new CompOpEItem(e,operation));
+			} else if(op == State.Lt) {
+				operation = new Lt();
+				eList.add(new CompOpEItem(e,operation));
+			} else if (op == State.Eq) {
+				operation = new Eq();
+				eList.add(new CompOpEItem(e,operation));
+			} else {
+				operation = new NotEq();
+				eList.add(new CompOpEItem(e,operation));
+			}
+		}
+		return new BoolPrimary(eList);
+	}
+	
+	public static EItem E() {
 		LinkedList<TermItem> termItemList = new LinkedList<TermItem>();
 
 		Term term = term();
 		termItemList.add(new SingleTermItem(term));
-		while ( state == State.Plus | state == State.Minus )
+		while ( state == State.Add | state == State.Sub )
 		{
 			State op = state;
 			getToken();
 			term = term();
-			if ( op == State.Plus )
+			if ( op == State.Add )
 				termItemList.add(new AddTermItem(term));
 			else // op == State.Minus
 				termItemList.add(new SubTermItem(term));
 		}
-		return new E(termItemList);
+		return new EItem(termItemList);
 	}
-
-	public static Term term()
-
-	// <term> --> <primary> { (*|/) <primary> }
-
-	{
+	
+	public static Term term() {
 		LinkedList<PrimaryItem> primaryItemList = new LinkedList<PrimaryItem>();
 
 		Primary primary = primary();
 		primaryItemList.add(new SinglePrimaryItem(primary));
-		while ( state == State.Times | state == State.Div )
+		while ( state == State.Mul | state == State.Div )
 		{
 			State op = state;
 			getToken();
 			primary = primary();
-			if ( op == State.Times )
+			if ( op == State.Mul )
 				primaryItemList.add(new MulPrimaryItem(primary));
 			else // op == State.Div
 				primaryItemList.add(new DivPrimaryItem(primary));
 		}
-		return new Term(primaryItemList);
+		return new Term(primaryItemList);	
 	}
+	
+	public static Primary primary() {
+		if (state == State.Id) {
+			return var();
+		} else if (state == State.Int) {
+			Int i = new Int(Integer.parseInt(t));
+			getToken();
+			return i;
+		} else if (state == State.Float) {
+			FloatP f = new FloatP(Float.parseFloat(t));
+		} else if (state == State.FloatE) {
+			
+		} else if (state == State.LParen) {
+			
+		} else if (state == State.Sub) {
+			
+		} else if (state == State.Neq) {
+			
+		} else {
+			errorMsg(5);
+		}
+		return null;
+	}
+
+	/*
+
+	
 
 	public static Primary primary()
 
