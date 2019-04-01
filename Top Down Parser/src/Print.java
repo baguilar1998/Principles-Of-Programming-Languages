@@ -11,11 +11,6 @@ public class Print extends Statement{
 		String indent1 = indent + " ";
 		IO.displayln(indent1 + indent1.length() + " <print>");
 		System.out.println(indent1 + indent1.length() + " <print>");
-		IO.displayln(indent1 + indent1.length() + " print");
-		System.out.println(indent1 + indent1.length() + " print");
-		String indent2 = indent1 + " ";
-		expr.printParseTree(indent2);
-		IO.displayln(indent1 + indent1.length() + " ;");
-		System.out.println(indent1 + indent1.length() + " ;");
+		expr.printParseTree(indent1);
 	}
 }

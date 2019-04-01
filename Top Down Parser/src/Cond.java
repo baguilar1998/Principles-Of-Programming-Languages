@@ -19,13 +19,14 @@ public class Cond extends Statement{
 		String indent1 = indent + " ";
 		IO.displayln(indent1 + indent1.length() + " <cond>");
 		System.out.println(indent1 + indent1.length() + " <cond>");
-		IO.displayln(indent1 + indent1.length() + " if");
-		System.out.println(indent1 + indent1.length() + " if");
 		String indent2 = indent1+ " ";
-		expr.printParseTree(indent2);
+		IO.displayln(indent2 + indent2.length() + " if");
+		System.out.println(indent2 + indent2.length() + " if");
+		expr.printParseTree(indent1);
+		statement1.printParseTree(indent2);
 		if(statement2 !=null) {
-			IO.displayln(indent1 + indent1.length() + " else");
-			System.out.println(indent1 + indent1.length() + " else");
+			IO.displayln(indent2 + indent2.length() + " else");
+			System.out.println(indent2 + indent2.length() + " else");
 			statement2.printParseTree(indent2);
 		}
 	}

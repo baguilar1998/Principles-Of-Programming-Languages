@@ -1,5 +1,5 @@
 import java.util.*;
-public class Expr extends Primary{
+public class Expr{
 	
 	LinkedList<BoolTermItem> expr;
 	

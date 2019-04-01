@@ -27,7 +27,7 @@ public abstract class Parser extends LexArith{
 	}
 	
 	/**
-	 * Top Down Parser for <header>
+	 * Top Down Parser for <header> 
 	 */
 	public static Header header() {
 		FuncName funcName;
@@ -136,13 +136,11 @@ public abstract class Parser extends LexArith{
 		if (state == State.Id) {
 			String id = t;
 			getToken();
-			// Assignment a = assignment();
 			if(state == State.LParen) {
 				return funcCallStatement(id);
 			} else {
 				return assignment(id);
 			}
-			// return a;
 		} else if (state == State.Keyword_if) {
 			return cond();
 		} else if (state == State.Keyword_while) {
@@ -160,6 +158,7 @@ public abstract class Parser extends LexArith{
 		}
 		return null;
 	}
+	
 	
 	public static FuncCallStatement funcCallStatement(String id) {
 		FuncCall funcCall = funcCall(id);
@@ -209,7 +208,6 @@ public abstract class Parser extends LexArith{
 		if (state == State.Assign) {
 			getToken();
 			RightSide rs = rightSide();
-			System.out.println(state);
 			if(state == State.Semicolon) {
 				getToken();
 				return new Assignment(v,rs);
@@ -363,11 +361,10 @@ public abstract class Parser extends LexArith{
 	 */
 	public static RightSide rightSide() {
 		if(state == State.Keyword_new) {
-			
+			return arrayConstructor();
 		} else {
 			return exprRightSide();
 		}
-		return null;
 	}
 	
 
@@ -379,7 +376,24 @@ public abstract class Parser extends LexArith{
 		return new ExprRightSide(ex);
 	}
 	
-
+	public static ArrayConstructor arrayConstructor() {
+		getToken();
+		if(state == State.LBracket) {
+			getToken();
+			EList elist = eList();
+			if(state == State.RBracket) {
+				getToken();
+				return new ArrayConstructor(elist);
+			} else {
+				//EXPECTED RBRACKET
+				errorMsg(5);
+			}
+		} else {
+			//EXPECTED LBRACKET
+			errorMsg(5);
+		}
+		return null;
+	}
 	/**
 	 * Top Down Parser for <expr>
 	 */
@@ -525,7 +539,7 @@ public abstract class Parser extends LexArith{
 			Expr expr = expr();
 			if (state == State.RParen) {
 				getToken();
-				return expr;
+				return new ExprPrimary(expr);
 			} else {
 				errorMsg(5);
 				return null;
