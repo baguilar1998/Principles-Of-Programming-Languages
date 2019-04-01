@@ -9,6 +9,9 @@ public class Block extends Statement{
 	void printParseTree(String indent) {
 		super.printParseTree(indent);
 		String indent1 = indent + " ";
-		sList.printParseTree(indent1);
+		IO.displayln(indent1 + indent1.length() + " <block> ");
+		System.out.println(indent1 + indent1.length() + " <block> ");
+		String indent2 = indent1 + " ";
+		sList.printParseTree(indent2);
 	}
 }

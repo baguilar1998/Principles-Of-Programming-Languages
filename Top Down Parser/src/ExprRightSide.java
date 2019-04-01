@@ -11,6 +11,7 @@ public class ExprRightSide extends RightSide {
 		String indent1 = indent + " ";
 		IO.displayln(indent1 + indent1.length() + " <expr right side>");
 		System.out.println(indent1 + indent1.length() + " <expr right side>");
-		expr.printParseTree(indent1);
+		String indent2 = indent1 + " ";
+		expr.printParseTree(indent2);
 	}
 }

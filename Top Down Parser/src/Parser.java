@@ -158,7 +158,20 @@ public abstract class Parser extends LexArith{
 		}
 		return null;
 	}
-	
+	/**
+	 * Top Down Parser for <block>
+	 */
+	public static Block block() {
+		getToken();
+		SList s = sList();
+		if(state == State.RBrace) {
+			getToken();
+			return new Block(s);
+		} else {
+			//EXPECTED RBRACE
+		}
+		return null;
+	}
 	
 	public static FuncCallStatement funcCallStatement(String id) {
 		FuncCall funcCall = funcCall(id);
@@ -279,21 +292,6 @@ public abstract class Parser extends LexArith{
 		if(state == State.Semicolon) {
 			getToken();
 			return new Print(expr);
-		}
-		return null;
-	}
-	
-	/**
-	 * Top Down Parser for <block>
-	 */
-	public static Block block() {
-		getToken();
-		SList s = sList();
-		if(state == State.RBrace) {
-			getToken();
-			return new Block(s);
-		} else {
-			//EXPECTED RBRACE
 		}
 		return null;
 	}
@@ -581,17 +579,15 @@ public abstract class Parser extends LexArith{
 		// argv[1]: output file displaying the parse tree
 		
 		setIO( argv[0], argv[1] );
-		//setLex();
 
 		getToken();
 
 		FuncDefList functionDefinitionList = funcDefList();
-		functionDefinitionList.printParseTree("");
 		
-		//if ( ! t.isEmpty() )
-			//errorMsg(5);
-		//else if ( ! errorFound )
-			//functionDefinitionList.printParseTree(""); // print the parse tree in linearly indented form in argv[1] file
+		if ( ! t.isEmpty() )
+			errorMsg(5);
+		else if ( ! errorFound )
+			functionDefinitionList.printParseTree(""); // print the parse tree in linearly indented form in argv[1] file
 
 		closeIO();
 	}
