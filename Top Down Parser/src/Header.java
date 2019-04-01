@@ -13,6 +13,6 @@ public class Header {
 		System.out.println(indent + indent.length() + " <header>");
 		String indent1 = indent + " ";
 		funcName.printParseTree(indent1);
-		parameterList.printParseTree(indent1);
+		if(parameterList != null) parameterList.printParseTree(indent1);
 	}
 }

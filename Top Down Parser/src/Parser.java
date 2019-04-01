@@ -34,7 +34,11 @@ public abstract class Parser extends LexArith{
 		ParameterList pList;
 		if( state == State.LParen) {
 			getToken();
-			pList = parameterList();
+			if(state == State.Id) {
+				pList = parameterList();
+			} else {
+				pList = null;
+			}
 			if(state == State.RParen) {
 				getToken();
 				return new Header(funcName, pList);
@@ -119,7 +123,7 @@ public abstract class Parser extends LexArith{
 		LinkedList<Statement> sList = new LinkedList<Statement>();
 		Statement s;
 		while(state == State.Id || state == State.Keyword_if || state == State.Keyword_while
-				|| state == State.LBrace || state == State.Keyword_print) {
+				|| state == State.LBrace || state == State.Keyword_print || state == State.Keyword_returnVal) {
 			s = statement();
 			sList.add(s);
 		}
@@ -132,7 +136,15 @@ public abstract class Parser extends LexArith{
 	 */
 	public static Statement statement() {
 		if (state == State.Id) {
-			return assignment();
+			String id = t;
+			getToken();
+			// Assignment a = assignment();
+			if(state == State.LParen) {
+				return funcCallStatement(id);
+			} else {
+				return assignment(id);
+			}
+			// return a;
 		} else if (state == State.Keyword_if) {
 			return cond();
 		} else if (state == State.Keyword_while) {
@@ -141,10 +153,89 @@ public abstract class Parser extends LexArith{
 			return block();
 		} else if (state == State.Keyword_print) {
 			return print();
+		} else if (state == State.Keyword_returnVal) {
+			String id = t;
+			getToken();
+			return assignment(id);
 		} else {
 			errorMsg(5);
 		}
 		return null;
+	}
+	
+	public static FuncCallStatement funcCallStatement(String id) {
+		return null;
+	}
+	
+	/**
+	 * Top Down Parser for <assignment>
+	 */
+	public static Assignment assignment(String id) {
+		Var v = var(id);
+		if (state == State.Assign) {
+			getToken();
+			RightSide rs = rightSide();
+			System.out.println(state);
+			if(state == State.Semicolon) {
+				getToken();
+				return new Assignment(v,rs);
+			} else {
+				//EXPECTED ;
+				errorMsg(5);
+			}
+		}else {
+			// EXPECTED =
+			errorMsg(5);
+		}
+		return null;
+	}
+	
+	/***
+	 * Top Down Parser for <var>
+	 */
+	public static Var var(String id) {
+		if(state == State.LBracket) {
+			return arrayVar(id);
+		} else if (id.equals("returnVal")) {
+			return new ReturnVal();
+		}
+		
+		return idVar(id);
+	}
+	
+	public static IdVar idVar(String id) {
+		return new IdVar(id);
+	}
+	
+	public static ArrayName arrayName(String id) {
+		return new ArrayName(id);
+	}
+	
+	public static ArrayVar arrayVar(String id) {
+		getToken();
+		ArrayName arrayName = arrayName(id);
+		EList elist = eList();
+		if(state == State.RBracket) {
+			getToken();
+			return new ArrayVar(arrayName,elist);
+		} else {
+			//EXPECTED
+			errorMsg(5);
+		}
+		return null;
+	}
+	
+	public static EList eList() {
+		LinkedList<EItem> eList = new LinkedList<EItem>();
+		EItem eItem = E();
+		eList.add(eItem);
+		while(state == State.Comma) {
+			getToken();
+			eItem = E();
+			eList.add(eItem);
+		}
+		return new EList(eList);
+		
 	}
 	
 	/**
@@ -222,45 +313,7 @@ public abstract class Parser extends LexArith{
 		}
 		return null;
 	}
-	/**
-	 * Top Down Parser for <assignment>
-	 */
-	public static Assignment assignment() {
-		Var v = var();
-		if (state == State.Assign) {
-			getToken();
-			RightSide rs = rightSide();
-			if(state == State.Semicolon) {
-				getToken();
-				return new Assignment(v,rs);
-			} else {
-				//EXPECTED ;
-				errorMsg(5);
-			}
-		}else {
-			// EXPECTED =
-			errorMsg(5);
-		}
-		return null;
-	}
-	
-	/***
-	 * Top Down Parser for <var>
-	 */
-	public static Var var() {
-		String id = t;
-		getToken();
-		if(state == State.LBracket) {
-			return arrayVar();
-			
-		} else if (state == State.Keyword_returnVal) {
-			getToken();
-			return new ReturnVal();
-		}
-		
-		return new IdVar(id);
-	}
-	
+
 
 	/**
 	 * Top Down Parser for <array var>
@@ -303,7 +356,8 @@ public abstract class Parser extends LexArith{
 		while (state == State.Or) {
 			getToken();
 			term = boolTerm();
-			boolTermList.add(new OrBoolTermItem(term));
+			boolTermList.add(new OrBoolTermItem(term));	
+			
 		}
 		return new Expr(boolTermList);
 		
@@ -317,10 +371,11 @@ public abstract class Parser extends LexArith{
 		LinkedList<BoolPrimaryItem> boolPrimaryList = new LinkedList<BoolPrimaryItem>();
 		BoolPrimary primary = boolPrimary();
 		boolPrimaryList.add(new SingleBoolPrimaryItem(primary));
-		while (state == State.Ampersand) {
+		while (state == State.And) {
 			getToken();
 			primary =  boolPrimary();
-			boolPrimaryList.add(new AndBoolPrimaryItem(primary));
+			boolPrimaryList.add(new AndBoolPrimaryItem(primary));	
+		
 		}
 		return new BoolTerm(boolPrimaryList);
 	}
@@ -411,8 +466,10 @@ public abstract class Parser extends LexArith{
 	 * Top Down Parser for <primary>
 	 */
 	public static Primary primary() {
-		if (state == State.Id) {
-			Var v = var();
+		if (state == State.Id || state == State.Keyword_returnVal) {
+			String id = t;
+			getToken();
+			Var v = var(id);
 			return new VarPrimary(v);
 		} else if (state == State.Int) {
 			Int i = new Int(Integer.parseInt(t));
@@ -440,9 +497,11 @@ public abstract class Parser extends LexArith{
 			getToken();
 			Primary p = primary();
 			return new NegPrimary(p);
-		} else if (state == State.Neq) {
-			
-		} else {
+		} else if (state == State.Inv) {
+			getToken();
+			Primary p = primary();
+			return new NeqPrimary(p);
+		} else { 
 			errorMsg(5);
 		}
 		return null;
@@ -477,6 +536,7 @@ public abstract class Parser extends LexArith{
 
 		FuncDefList functionDefinitionList = funcDefList();
 		functionDefinitionList.printParseTree("");
+		
 		//if ( ! t.isEmpty() )
 			//errorMsg(5);
 		//else if ( ! errorFound )

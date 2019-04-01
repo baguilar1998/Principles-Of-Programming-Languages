@@ -2,20 +2,12 @@
  1 <fun def>
   2 <header>
    3 <func name> test
-   3 <parameter list>
-    4 <parameter> cs316
-    4 <parameter> abc
-    4 <parameter> test1
-    4 <parameter> abcd
-    4 <parameter> A
-    4 <parameter> B
-    4 <parameter> C
   2 <body>
    3 <s list>
     4 <statement>
      5 <assignment>
       6 <var>
-       7 <id var>cs316
+       7 returnVal
       6 =
       6 <right side>
        7 <expr right side>
@@ -26,58 +18,101 @@
             12 <term>
              13 <primary>
               14 <var>
-               15 <id var>cs316
-             13 *
-             13 <primary> 
-              14 - 
-              14 <primary> 6.9
-             13 /
-             13 <primary> 
-              14 - 
-              14 <primary> 12
-             13 *
-             13 <primary>
-              14 <var>
-               15 <id var>abc
+               15 <id var> A
             12 +
             12 <term>
-             13 <primary>
-              14 <var>
-               15 <id var>test1
-             13 /
-             13 <primary> 0.069
+             13 <primary> 2
              13 *
-             13 <primary> 123
-             13 /
              13 <primary>
               14 <var>
-               15 <id var>abcd
+               15 <id var> J
+           11 >
+           11 <E>
+            12 <term>
+             13 <primary> 1
+             13 *
+             13 <primary>
+              14 <var>
+               15 <id var> X
             12 -
             12 <term>
-             13 <primary> 
-              14 - 
-              14 <primary> 
-               15 - 
-               15 <primary> 
-                16 - 
-                16 <primary> 5
-            12 +
+             13 <primary>
+              14 <var>
+               15 <id var> K
+          10 &&
+          10 <boolPrimary>
+           11 <E>
             12 <term>
-              14 <expr>
-               15 <boolTerm>
-                16 <boolPrimary>
-                 17 <E>
-                  18 <term>
-                   19 <primary>
-                    20 <var>
-                     21 <id var>A
-                  18 -
-                  18 <term>
-                   19 <primary>
-                    20 <var>
-                     21 <id var>B
-                  18 +
-                  18 <term>
-                   19 <primary>
-                    20 <var>
-                     21 <id var>C
+             13 <primary>
+              14 <var>
+               15 <id var> B
+           11 <=
+           11 <E>
+            12 <term>
+             13 <primary> 1.3
+          10 &&
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> C
+           11 <
+           11 <E>
+            12 <term>
+             13 <primary> 0.0734
+         9 ||
+         9 <boolTerm>
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> D
+          10 &&
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> E
+          10 &&
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary> 
+              14 ! 
+               15 <expr>
+                16 <boolTerm>
+                 17 <boolPrimary>
+                  18 <E>
+                   19 <term>
+                    20 <primary>
+                     21 <var>
+                      22 <id var> F
+                16 ||
+                16 <boolTerm>
+                 17 <boolPrimary>
+                  18 <E>
+                   19 <term>
+                    20 <primary>
+                     21 <var>
+                      22 <id var> G
+          10 &&
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> H
+          10 &&
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary> 
+              14 ! 
+              14 <primary> 
+               15 ! 
+               15 <primary>
+                16 <var>
+                 17 returnVal
