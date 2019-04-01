@@ -30,40 +30,38 @@ public abstract class Parser extends LexArith{
 	 * Top Down Parser for <header>
 	 */
 	public static Header header() {
-		FuncName funcName = funcName();
-		ParameterList pList;
-		if( state == State.LParen) {
+		FuncName funcName;
+		if(state == State.Id) {
+			String id = t;
 			getToken();
-			if(state == State.Id) {
-				pList = parameterList();
-			} else {
-				pList = null;
-			}
-			if(state == State.RParen) {
+			funcName = funcName(id);
+			ParameterList pList;
+			if( state == State.LParen) {
 				getToken();
-				return new Header(funcName, pList);
+				if(state == State.Id) {
+					pList = parameterList();
+				} else {
+					pList = null;
+				}
+				if(state == State.RParen) {
+					getToken();
+					return new Header(funcName, pList);
+				} else {
+					errorMsg(5);
+				}
 			} else {
 				errorMsg(5);
 			}
-		} else {
-			errorMsg(5);
 		}
+
 		return null;
 	}
 	
 	/**
 	 * Top Down Parser for <func name>
 	 */
-	public static FuncName funcName() {
-		if (state == State.Id) {
-			String id = t;
-			getToken();
-			return new FuncName(id);
-			
-		} else {
-			errorMsg(5);
-		}
-		return null;
+	public static FuncName funcName(String id) {
+		return new FuncName(id);
 	}
 	
 	/**
@@ -164,9 +162,45 @@ public abstract class Parser extends LexArith{
 	}
 	
 	public static FuncCallStatement funcCallStatement(String id) {
+		FuncCall funcCall = funcCall(id);
+		if(state == State.Semicolon) {
+			getToken();
+			return new FuncCallStatement(funcCall);
+		} else {
+			errorMsg(5);
+		}
 		return null;
 	}
 	
+	public static FuncCall funcCall(String id) {
+		FuncName funcName = funcName(id);
+		if(state == State.LParen) {
+			getToken();
+			if(state != State.RParen) {
+				ExprList exprList = exprList();
+				if(state == State.RParen) {
+					getToken();
+					return new FuncCall(funcName,exprList);
+				}
+			} else {
+				getToken();
+				return new FuncCall(funcName, null);
+			}
+		}
+		return null;
+	}
+	
+	public static ExprList exprList() {
+		LinkedList<Expr> exprList = new LinkedList<>();
+		Expr expr = expr();
+		exprList.add(expr);
+		while(state == State.Comma) {
+			getToken();
+			expr = expr();
+			exprList.add(expr);
+		}
+		return new ExprList(exprList);
+	}
 	/**
 	 * Top Down Parser for <assignment>
 	 */
@@ -469,6 +503,9 @@ public abstract class Parser extends LexArith{
 		if (state == State.Id || state == State.Keyword_returnVal) {
 			String id = t;
 			getToken();
+			if(state == State.LParen) {
+				return new FuncCallPrimary(funcCall(id));
+			}
 			Var v = var(id);
 			return new VarPrimary(v);
 		} else if (state == State.Int) {

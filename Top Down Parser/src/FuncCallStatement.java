@@ -9,6 +9,9 @@ public class FuncCallStatement extends Statement {
 	void printParseTree(String indent) {
 		super.printParseTree(indent);
 		String indent1 = indent + " ";
-		funcCall.printParseTree(indent1);
+		IO.displayln(indent1 + indent1.length() + " <func call statement> ");
+		System.out.println(indent1 + indent1.length() + " <func call statement> ");
+		String indent2 = indent1+ " ";
+		funcCall.printParseTree(indent2);
 	}
 }

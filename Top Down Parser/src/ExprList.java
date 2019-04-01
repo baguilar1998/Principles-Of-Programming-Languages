@@ -12,6 +12,6 @@ public class ExprList {
 		System.out.println(indent + indent.length() + " <expr list>");
 		String indent1 = indent + " ";
 		for(Expr e: exprList)
-			e.printParseTree(indent1);
+			e.printParseTree(indent);
 	}
 }
