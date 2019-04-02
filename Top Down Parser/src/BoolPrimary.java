@@ -9,7 +9,6 @@ public class BoolPrimary {
 	
 	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <boolPrimary>");
-		System.out.println(indent + indent.length() + " <boolPrimary>");
 		String indent1 = indent + " ";
 		for(ETermItem e : eList)
 			e.printParseTree(indent1);

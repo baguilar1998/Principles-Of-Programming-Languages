@@ -11,7 +11,6 @@ public class FuncCall {
 	
 	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <func call>");
-		System.out.println(indent + indent.length() + " <func call>");
 		String indent1 = indent + " ";
 		funcName.printParseTree(indent1);
 		if(exprList!=null)exprList.printParseTree(indent1);

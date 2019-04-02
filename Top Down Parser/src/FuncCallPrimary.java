@@ -8,10 +8,8 @@ public class FuncCallPrimary extends Primary{
 	}
 	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <primary> ");
-		System.out.println(indent + indent.length() + " <primary> ");
 		String indent1 = indent + " ";
 		IO.displayln(indent1 + indent1.length() + " <func call primary> ");
-		System.out.println(indent1 + indent1.length() + " <func call primary> ");
 		String indent2 = indent1 + " ";
 		funcCall.printParseTree(indent2);
 		

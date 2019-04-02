@@ -5,6 +5,5 @@ public class ReturnVal extends Var{
 		super.printParseTree(indent);
 		String indent1 = indent + " ";
 		IO.displayln(indent1 + indent1.length() + " returnVal");
-		System.out.println(indent1 + indent1.length() + " returnVal");
 	}
 }

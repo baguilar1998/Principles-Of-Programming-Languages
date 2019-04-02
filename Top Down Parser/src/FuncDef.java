@@ -10,7 +10,6 @@ public class FuncDef {
 	
 	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <fun def>");
-		System.out.println(indent + indent.length() + " <fun def>");
 		String indent1 = indent + " ";
 		head.printParseTree(indent1);
 		body.printParseTree(indent1);

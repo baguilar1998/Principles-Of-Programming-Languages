@@ -7,9 +7,7 @@ public class ParenPrimary extends Primary{
 	}
 	void printParseTree(String indent) {
 		IO.display(indent + indent.length() + "(");
-		System.out.println(indent + indent.length() + "(");
 		expr.printParseTree(indent);
 		IO.display(indent + indent.length() + ")");
-		System.out.println(indent + indent.length() + "");
 	}
 }

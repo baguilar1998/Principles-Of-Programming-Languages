@@ -1,13 +1,12 @@
 
 public class FuncName {
-	String id;
+	Id id;
 	
-	FuncName(String i) {
+	FuncName(Id i) {
 		id = i;
 	}
 	
 	void printParseTree(String indent) {
-		IO.displayln(indent + indent.length() + " <func name> " + id);
-		System.out.println(indent + indent.length() + " <func name> " + id);
+		IO.displayln(indent + indent.length() + " <func name> " + id.id);
 	}
 }

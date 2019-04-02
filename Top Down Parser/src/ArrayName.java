@@ -1,13 +1,12 @@
 
 public class ArrayName {
-	String id;
+	Id id;
 	
-	ArrayName(String i) {
+	ArrayName(Id i) {
 		id = i;
 	}
 	
 	void printParseTree(String indent) {
-		IO.displayln(indent + indent.length() + " <array name> " + id);
-		System.out.println(indent + indent.length() + " <array name> " + id);
+		IO.displayln(indent + indent.length() + " <array name> " + id.id);
 	}
 }

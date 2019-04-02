@@ -12,7 +12,6 @@ public class ArrayVar extends Var{
 		super.printParseTree(indent);
 		String indent1 = indent + " ";
 		IO.displayln(indent1 + indent1.length() + " <array var>");
-		System.out.println(indent1 + indent1.length() + " <array var>");
 		String indent2 = indent1 + " ";
 		arrayName.printParseTree(indent2);
 		eList.printParseTree(indent2);

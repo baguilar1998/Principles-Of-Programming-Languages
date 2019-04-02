@@ -13,11 +13,9 @@ public class Assignment extends Statement {
 		super.printParseTree(indent);
 		String indent1 = indent + " ";
 		IO.displayln(indent1 + indent1.length() + " <assignment>");
-		System.out.println(indent1 + indent1.length() + " <assignment>");
 		String indent2 = indent1 + " ";
 		var.printParseTree(indent2);
 		IO.displayln(indent2 + indent2.length() + " =");
-		System.out.println(indent2 + indent2.length() + " =");
 		rightSide.printParseTree(indent2);
 	}
 }

@@ -8,7 +8,6 @@ public class EItem{
 	
 	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <E>");
-		System.out.println(indent + indent.length() + " <E>");
 		String indent1 = indent + " ";
 		for(TermItem t : termList)
 			t.printParseTree(indent1);

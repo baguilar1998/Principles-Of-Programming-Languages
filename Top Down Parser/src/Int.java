@@ -8,7 +8,6 @@ public class Int extends Primary{
 	
 	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <primary> " + number);
-		System.out.println(indent + indent.length() + " <primary> " + number);
 	}
 	
 }

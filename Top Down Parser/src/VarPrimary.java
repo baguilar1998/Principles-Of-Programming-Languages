@@ -9,7 +9,6 @@ public class VarPrimary extends Primary{
 	
 	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <primary>");
-		System.out.println(indent + indent.length() + " <primary>");
 		String indent1 = indent + " ";
 		var.printParseTree(indent1);
 		

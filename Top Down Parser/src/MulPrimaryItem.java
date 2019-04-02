@@ -15,7 +15,6 @@ class MulPrimaryItem extends PrimaryItem
 	void printParseTree(String indent)
 	{
 		IO.displayln(indent + indent.length() + " *");
-		System.out.println(indent + indent.length() + " *");
 		primary.printParseTree(indent);
 	}
 

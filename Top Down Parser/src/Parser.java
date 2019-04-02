@@ -47,11 +47,16 @@ public abstract class Parser extends LexArith{
 					getToken();
 					return new Header(funcName, pList);
 				} else {
-					errorMsg(5);
+					// Expected )
+					errorMsg(6);
 				}
 			} else {
-				errorMsg(5);
+				//Expected {
+				errorMsg(7);
 			}
+		} else {
+			//Expected Id
+			errorMsg(5);
 		}
 
 		return null;
@@ -61,7 +66,8 @@ public abstract class Parser extends LexArith{
 	 * Top Down Parser for <func name>
 	 */
 	public static FuncName funcName(String id) {
-		return new FuncName(id);
+		Id funId = new Id(id);
+		return new FuncName(funId);
 	}
 	
 	/**
@@ -85,10 +91,12 @@ public abstract class Parser extends LexArith{
 	public static Parameter parameter() {
 	if (state == State.Id) {
 			String id = t;
+			Id pId = new Id(id);
 			getToken();
-			return new Parameter(id);
+			return new Parameter(pId);
 			
 		} else {
+			// Expected Id
 			errorMsg(5);
 		}
 		return null;
@@ -106,10 +114,12 @@ public abstract class Parser extends LexArith{
 				getToken();
 				return new Body(sList);
 			} else {
-				errorMsg(5);
+				// Expected }
+				errorMsg(9);
 			}
 		} else {
-			errorMsg(5);
+			// Expected {
+			errorMsg(8);
 		}
 		return null;
 	}
@@ -154,10 +164,12 @@ public abstract class Parser extends LexArith{
 			getToken();
 			return assignment(id);
 		} else {
-			errorMsg(5);
+			// Expected id, (, if, while, print, returnVal
+			errorMsg(12);
 		}
 		return null;
 	}
+	
 	/**
 	 * Top Down Parser for <block>
 	 */
@@ -168,22 +180,30 @@ public abstract class Parser extends LexArith{
 			getToken();
 			return new Block(s);
 		} else {
-			//EXPECTED RBRACE
+			//EXPECTED }
+			errorMsg(9);
 		}
 		return null;
 	}
 	
+	/**
+	 * Top Down Parser for <func call statement>
+	 */
 	public static FuncCallStatement funcCallStatement(String id) {
 		FuncCall funcCall = funcCall(id);
 		if(state == State.Semicolon) {
 			getToken();
 			return new FuncCallStatement(funcCall);
 		} else {
-			errorMsg(5);
+			// Expected ;
+			errorMsg(4);
 		}
 		return null;
 	}
 	
+	/**
+	 * Top Down Parser for <func call>
+	 */
 	public static FuncCall funcCall(String id) {
 		FuncName funcName = funcName(id);
 		if(state == State.LParen) {
@@ -193,15 +213,24 @@ public abstract class Parser extends LexArith{
 				if(state == State.RParen) {
 					getToken();
 					return new FuncCall(funcName,exprList);
+				} else {
+					//Expected )
+					errorMsg(6);
 				}
 			} else {
 				getToken();
 				return new FuncCall(funcName, null);
 			}
+		} else {
+			//Expected (
+			errorMsg(7);
 		}
 		return null;
 	}
 	
+	/**
+	 * Top Down Parser for <expr list>
+	 */
 	public static ExprList exprList() {
 		LinkedList<Expr> exprList = new LinkedList<>();
 		Expr expr = expr();
@@ -213,6 +242,7 @@ public abstract class Parser extends LexArith{
 		}
 		return new ExprList(exprList);
 	}
+	
 	/**
 	 * Top Down Parser for <assignment>
 	 */
@@ -226,11 +256,11 @@ public abstract class Parser extends LexArith{
 				return new Assignment(v,rs);
 			} else {
 				//EXPECTED ;
-				errorMsg(5);
+				errorMsg(4);
 			}
 		}else {
 			// EXPECTED =
-			errorMsg(5);
+			errorMsg(3);
 		}
 		return null;
 	}
@@ -248,14 +278,25 @@ public abstract class Parser extends LexArith{
 		return idVar(id);
 	}
 	
+	/**
+	 * Top Down Parser for <id var>
+	 */
 	public static IdVar idVar(String id) {
-		return new IdVar(id);
+		Id varId = new Id(id);
+		return new IdVar(varId);
 	}
 	
+	/**
+	 * Top Down Parser for <array name>
+	 */
 	public static ArrayName arrayName(String id) {
-		return new ArrayName(id);
+		Id varId = new Id(id);
+		return new ArrayName(varId);
 	}
-	
+
+	/**
+	 * Top Down Parser for <array var>
+	 */
 	public static ArrayVar arrayVar(String id) {
 		getToken();
 		ArrayName arrayName = arrayName(id);
@@ -264,12 +305,15 @@ public abstract class Parser extends LexArith{
 			getToken();
 			return new ArrayVar(arrayName,elist);
 		} else {
-			//EXPECTED
-			errorMsg(5);
+			//EXPECTED ]
+			errorMsg(11);
 		}
 		return null;
 	}
 	
+	/**
+	 * Top Down Parser for <EList>
+	 */
 	public static EList eList() {
 		LinkedList<EItem> eList = new LinkedList<EItem>();
 		EItem eItem = E();
@@ -292,6 +336,9 @@ public abstract class Parser extends LexArith{
 		if(state == State.Semicolon) {
 			getToken();
 			return new Print(expr);
+		} else {
+			// Expected ;
+			errorMsg(4);
 		}
 		return null;
 	}
@@ -310,9 +357,11 @@ public abstract class Parser extends LexArith{
 				return new While(expr,s);
 			} else {
 				//EXPECTED RPAREN
+				errorMsg(6);
 			}
 		} else {
 			// EXPECTED LPAREN
+			errorMsg(5);
 		}
 		return null;
 	}
@@ -337,22 +386,14 @@ public abstract class Parser extends LexArith{
 				}
 			} else {
 				//EXPECTED RPAREN
+				errorMsg(6);
 			}
 		} else {
 			//EXPECTED LPAREN
+			errorMsg(5);
 		}
 		return null;
 	}
-
-
-	/**
-	 * Top Down Parser for <array var>
-	 */
-	public static ArrayVar arrayVar() {
-		getToken();
-		return null;
-	}
-	
 
 	/**
 	 * Top Down Parser for <right side>
@@ -374,6 +415,9 @@ public abstract class Parser extends LexArith{
 		return new ExprRightSide(ex);
 	}
 	
+	/**
+	 * Top Down Parser for <array constrcutor>
+	 */
 	public static ArrayConstructor arrayConstructor() {
 		getToken();
 		if(state == State.LBracket) {
@@ -384,14 +428,15 @@ public abstract class Parser extends LexArith{
 				return new ArrayConstructor(elist);
 			} else {
 				//EXPECTED RBRACKET
-				errorMsg(5);
+				errorMsg(10);
 			}
 		} else {
 			//EXPECTED LBRACKET
-			errorMsg(5);
+			errorMsg(11);
 		}
 		return null;
 	}
+	
 	/**
 	 * Top Down Parser for <expr>
 	 */
@@ -533,13 +578,14 @@ public abstract class Parser extends LexArith{
 			getToken();
 			return f;
 		} else if (state == State.LParen) {
+			
 			getToken();
 			Expr expr = expr();
 			if (state == State.RParen) {
 				getToken();
 				return new ExprPrimary(expr);
 			} else {
-				errorMsg(5);
+				errorMsg(6);
 				return null;
 			}
 		} else if (state == State.Sub) {
@@ -551,7 +597,7 @@ public abstract class Parser extends LexArith{
 			Primary p = primary();
 			return new NeqPrimary(p);
 		} else { 
-			errorMsg(5);
+			errorMsg(2);
 		}
 		return null;
 	}
@@ -566,10 +612,18 @@ public abstract class Parser extends LexArith{
 		switch( i )
 		{
 		case 1:	displayln(" arith op or ) expected"); return;
-		case 2: displayln(" id, int, float, or ( expected"); return;
+		case 2: displayln(" id, returnVal, int, float, floatE, expr, -, !, ( expected"); return;
 		case 3:	displayln(" = expected"); return;
 		case 4:	displayln(" ; expected"); return;
-		case 5:	displayln(" id expected"); return;		
+		case 5:	displayln(" id expected"); return;	
+		case 6:	displayln(" ) expected"); return;
+		case 7:	displayln(" ( expected"); return;	
+		case 8:	displayln(" { expected"); return;	
+		case 9:	displayln(" } expected"); return;	
+		case 10: displayln(" [ expected"); return;
+		case 11: displayln(" ] expected"); return;	
+		case 12: displayln(" id, (, if, while, {, print, returnVal expected"); return;	
+		
 		}
 	}
 
@@ -585,7 +639,7 @@ public abstract class Parser extends LexArith{
 		FuncDefList functionDefinitionList = funcDefList();
 		
 		if ( ! t.isEmpty() )
-			errorMsg(5);
+			errorMsg(-1);
 		else if ( ! errorFound )
 			functionDefinitionList.printParseTree(""); // print the parse tree in linearly indented form in argv[1] file
 

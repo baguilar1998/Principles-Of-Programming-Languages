@@ -8,7 +8,6 @@ public class EList {
 	
 	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <EList>");
-		System.out.println(indent + indent.length() + " <EList>");
 		String indent1 = indent + " ";
 		for(EItem e: eList)
 			e.printParseTree(indent1);

@@ -7,7 +7,6 @@ public class AndBoolPrimaryItem extends BoolPrimaryItem{
 	
 	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length()+ " &&");
-		System.out.println(indent + indent.length()+ " &&");
 		item.printParseTree(indent);
 	}
 }

@@ -8,7 +8,7 @@ public class ExprPrimary extends Primary{
 	
 	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <primary>");
-		System.out.println(indent + indent.length() + " <primary>");
-		expr.printParseTree(indent);
+		String indent1 = indent + " ";
+		expr.printParseTree(indent1);
 	}
 }
