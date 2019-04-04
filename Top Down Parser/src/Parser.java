@@ -477,35 +477,41 @@ public abstract class Parser extends LexArith{
 	 */
 	public static BoolPrimary boolPrimary() {
 		LinkedList<ETermItem> eList = new LinkedList<ETermItem>();
-		EItem e = E();
-		eList.add(new SingleEItem(e));
-		while (state == State.Ge || state == State.Gt || state == State.Le ||
+		EItem e1 = E();
+		CompOp operation = null;
+		EItem e2 = null;
+		//eList.add(new SingleEItem(e));
+		if (state == State.Ge || state == State.Gt || state == State.Le ||
 				state == State.Lt || state == State.Eq || state == State.Neq) {
 			State op = state;
-			CompOp operation;
 			getToken();
-			e = E();
 			if(op == State.Ge) {
 				operation = new Ge();
-				eList.add(new CompOpEItem(e,operation));
+				//eList.add(new CompOpEItem(e,operation));
+				e2 = E();
 			} else if(op == State.Gt) {
 				operation = new Gt();
-				eList.add(new CompOpEItem(e,operation));
+				//eList.add(new CompOpEItem(e,operation));
+				e2 = E();
 			} else if(op == State.Le) {
 				operation = new Le();
-				eList.add(new CompOpEItem(e,operation));
+				//eList.add(new CompOpEItem(e,operation));
+				e2 = E();
 			} else if(op == State.Lt) {
 				operation = new Lt();
-				eList.add(new CompOpEItem(e,operation));
+				//eList.add(new CompOpEItem(e,operation));
+				e2 = E();
 			} else if (op == State.Eq) {
 				operation = new Eq();
-				eList.add(new CompOpEItem(e,operation));
+				//eList.add(new CompOpEItem(e,operation));
+				e2 = E();
 			} else {
 				operation = new NotEq();
-				eList.add(new CompOpEItem(e,operation));
+				//eList.add(new CompOpEItem(e,operation));
+				e2 = E();
 			}
 		}
-		return new BoolPrimary(eList);
+		return new BoolPrimary(e1,operation,e2);
 	}
 	
 
