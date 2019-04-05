@@ -18,7 +18,5 @@ public class BoolPrimary {
 			op.printParseTree(indent1);
 			e2.printParseTree(indent1);
 		}
-		//for(ETermItem e : eList)
-			//e.printParseTree(indent1);
 	}
 }

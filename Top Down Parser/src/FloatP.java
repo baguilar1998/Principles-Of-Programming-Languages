@@ -1,9 +1,9 @@
 
 public class FloatP extends Primary{
 
-	float number;
+	double number;
 	
-	FloatP(float f) {
+	FloatP(double f) {
 		number = f;
 	}
 	

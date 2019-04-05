@@ -480,34 +480,27 @@ public abstract class Parser extends LexArith{
 		EItem e1 = E();
 		CompOp operation = null;
 		EItem e2 = null;
-		//eList.add(new SingleEItem(e));
 		if (state == State.Ge || state == State.Gt || state == State.Le ||
 				state == State.Lt || state == State.Eq || state == State.Neq) {
 			State op = state;
 			getToken();
 			if(op == State.Ge) {
 				operation = new Ge();
-				//eList.add(new CompOpEItem(e,operation));
 				e2 = E();
 			} else if(op == State.Gt) {
 				operation = new Gt();
-				//eList.add(new CompOpEItem(e,operation));
 				e2 = E();
 			} else if(op == State.Le) {
 				operation = new Le();
-				//eList.add(new CompOpEItem(e,operation));
 				e2 = E();
 			} else if(op == State.Lt) {
 				operation = new Lt();
-				//eList.add(new CompOpEItem(e,operation));
 				e2 = E();
 			} else if (op == State.Eq) {
 				operation = new Eq();
-				//eList.add(new CompOpEItem(e,operation));
 				e2 = E();
 			} else {
 				operation = new NotEq();
-				//eList.add(new CompOpEItem(e,operation));
 				e2 = E();
 			}
 		}
@@ -576,11 +569,11 @@ public abstract class Parser extends LexArith{
 			getToken();
 			return i;
 		} else if (state == State.Float) {
-			FloatP f = new FloatP(Float.parseFloat(t));
+			FloatP f = new FloatP(Double.parseDouble(t));
 			getToken();
 			return f;
 		} else if (state == State.FloatE) {
-			FloatP f = new FloatP(Float.parseFloat(t));
+			FloatP f = new FloatP(Double.parseDouble(t));
 			getToken();
 			return f;
 		} else if (state == State.LParen) {
