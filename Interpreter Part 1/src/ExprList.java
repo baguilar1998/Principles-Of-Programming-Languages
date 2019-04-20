@@ -13,4 +13,19 @@ public class ExprList {
 		for(Expr e: exprList)
 			e.printParseTree(indent1);
 	}
+	
+	void M(HashMap<String,Val> state) {
+		if(exprList.size()== 0)return;
+		Val expr;
+		int counter = 1;
+		for(Expr e: exprList) {
+			expr = e.Eval(state);
+			if(expr == null) {
+				System.out.println("Error occured");
+				return;
+			}
+			state.put("e" +counter, expr);
+			++counter;
+		}
+	}
 }

@@ -21,7 +21,7 @@ public class Print extends Statement{
 		 if(eVal != null ) {
 			System.out.println(eVal);
 		 } else {
-			 System.out.println("Got a null value");
+			// System.out.println("Got a null value");
 		 }
 	}
 }

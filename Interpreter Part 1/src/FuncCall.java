@@ -20,16 +20,26 @@ public class FuncCall {
 	 * WORK ON THIS FUNCTION
 	 * @param state current program state
 	 */
-	void M(HashMap<String,Val> state) {
+	Val Eval(HashMap<String,Val> state, Val eVal) {
 		HashMap<String,Val> functionState = new HashMap<String,Val>();
-		//
-		// EVAL the expr list
-		// if there is no program state for expr that means the function has no parameters
-		// else add the function parameters into the new hashmap
-		
+
+		exprList.M(functionState);
 		FuncDef funcDef = Parser.funcDefMap.get(funcName.id.id);
+		LinkedList<Parameter> list = funcDef.head.parameterList.parameterList;
+		int counter =1;
+		for(Parameter p: list) {
+			String tempParam = "e"+counter;
+			Val temp = functionState.get(tempParam);
+			functionState.remove(tempParam);
+			String actualParam = p.id.id;
+			functionState.put(actualParam, temp);
+			++counter;
+		}
+		functionState.put("returnVal", null);
 		funcDef.body.M(functionState);
+		
 		// Get the return val of the functionState hashmap and add it to your current program state
-		state.put("returnVal", functionState.get("returnVal"));
+		System.out.println(functionState);
+		return functionState.get("returnVal");
 	}
 }
