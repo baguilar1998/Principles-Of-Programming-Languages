@@ -15,12 +15,9 @@ public class OrBoolTermItem  extends BoolTermItem{
 		
 		Class termClass = termVal.getClass();
 		Class eClass = eVal.getClass();
-		
-		if(termClass == IntVal.class && eClass == IntVal.class) {
-			((BoolVal)termVal).val = ((BoolVal)termVal).val || ((BoolVal)eVal).val;
-			return termVal;
-		}
-		
-		return null;
+
+		((BoolVal)termVal).val = ((BoolVal)termVal).val || ((BoolVal)eVal).val;
+		return termVal;
+
 	}
 }

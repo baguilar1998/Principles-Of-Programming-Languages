@@ -44,8 +44,8 @@ class DivPrimaryItem extends PrimaryItem
 				System.out.println("Error: divison by 0");
 				return null;
 			}
-			((FloatVal)eVal).val = ((IntVal)eVal).val / ((FloatVal)termVal).val;
-			return eVal;
+			((FloatVal)termVal).val = ((IntVal)eVal).val / ((FloatVal)termVal).val;
+			return termVal;
 		}
 		else // termClass == FloatVal.class
 		{
