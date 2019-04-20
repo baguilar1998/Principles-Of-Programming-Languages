@@ -22,7 +22,11 @@ public class VarPrimary extends Primary{
 			return null;
 			
 		}else if(var.getClass() == IdVar.class) {
-			return state.get(((IdVar)var).id.id);
+			//System.out.print(((IdVar)var).id.id + " ");
+			//System.out.println(state.get(((IdVar)var).id.id));
+			//System.out.println(state);
+			Val value = state.get(((IdVar)var).id.id);
+			return value.cloneVal();
 		}
 		return null;
 	}

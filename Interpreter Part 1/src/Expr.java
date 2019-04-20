@@ -16,8 +16,10 @@ public class Expr{
 	
 	Val Eval(HashMap<String,Val> state) {
 		Val eVal = null;
-		for (BoolTermItem t: expr)
+		for (BoolTermItem t: expr) {
 			eVal = t.Eval(state,eVal);
+		}
+
 		return eVal;
 	}
 }

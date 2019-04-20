@@ -36,8 +36,8 @@ class AddTermItem extends TermItem
 		}
 		else if ( termClass == IntVal.class ) // eClass == FloatVal.class
 		{
-			((FloatVal)eVal).val = ((IntVal)termVal).val + ((FloatVal)eVal).val;
-			return eVal;
+			((FloatVal)termVal).val = ((IntVal)termVal).val + ((FloatVal)eVal).val;
+			return termVal;
 		}
 		else // termClass == FloatVal.class
 		{

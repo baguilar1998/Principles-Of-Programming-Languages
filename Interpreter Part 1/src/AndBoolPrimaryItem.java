@@ -10,8 +10,19 @@ public class AndBoolPrimaryItem extends BoolPrimaryItem{
 		item.printParseTree(indent);
 	}
 	
-	Val Eval(HashMap<String,Val> state, Val val) {
-		Val eVal = val;
-		return val;
+	Val Eval(HashMap<String,Val> state, Val eVal) {
+		Val termVal = item.Eval(state,eVal);
+		if(eVal == null || termVal == null) return null;
+		
+		Class termClass = termVal.getClass();
+		Class eClass = eVal.getClass();
+		
+		if(termClass == IntVal.class && eClass == IntVal.class) {
+			((BoolVal)termVal).val = ((BoolVal)termVal).val && ((BoolVal)eVal).val;
+			return termVal;
+		}
+		
+		return null;
+
 	}
 }

@@ -14,8 +14,7 @@ public class BoolTerm {
 			bp.printParseTree(indent1);
 	}
 	
-	Val Eval(HashMap<String,Val> state, Val val) {
-		Val eVal = val;
+	Val Eval(HashMap<String,Val> state, Val eVal) {
 		for (BoolPrimaryItem t: boolPrimary)
 			eVal = t.Eval(state,eVal);
 		return eVal;

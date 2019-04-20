@@ -21,27 +21,28 @@ class SubTermItem extends TermItem
 	@Override
 	Val Eval(HashMap<String, Val> state, Val eVal) {
 		Val termVal = term.Eval(state, eVal);
+		//System.out.println(eVal + " " + termVal);
 		if ( termVal == null || eVal == null )
 			return null;
 		
 		// The result will be float if one or both of the arguments are float.
-		
 		Class termClass = termVal.getClass();
 		Class    eClass =    eVal.getClass();
 
 		if ( termClass == IntVal.class && eClass == IntVal.class )
 		{
-			((IntVal)termVal).val = ((IntVal)termVal).val - ((IntVal)eVal).val;
+			((IntVal)termVal).val = ((IntVal)eVal).val - ((IntVal)termVal).val;
+			//System.out.println(state);
 			return termVal;
 		}
 		else if ( termClass == IntVal.class ) // eClass == FloatVal.class
 		{
-			((FloatVal)eVal).val = ((IntVal)termVal).val - ((FloatVal)eVal).val;
-			return eVal;
+			((FloatVal)termVal).val = ((IntVal)eVal).val - ((FloatVal)termVal).val;
+			return termVal;
 		}
 		else // termClass == FloatVal.class
 		{
-			((FloatVal)termVal).val = termVal.floatVal() - eVal.floatVal();
+			((FloatVal)eVal).val = eVal.floatVal() - termVal.floatVal();
 			return termVal;
 		}
 	}

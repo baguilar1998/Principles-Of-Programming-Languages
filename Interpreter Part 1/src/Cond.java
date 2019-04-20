@@ -1,3 +1,4 @@
+import java.util.HashMap;
 
 public class Cond extends Statement{
 	Expr expr;
@@ -26,5 +27,23 @@ public class Cond extends Statement{
 			IO.displayln(indent2 + indent2.length() + " else");
 			statement2.printParseTree(indent2);
 		}
+	}
+
+	@Override
+	void M(HashMap<String, Val> state) {
+		if(statement2 == null) {
+			Val boolExpr = expr.Eval(state);
+			if(((BoolVal)boolExpr).val) {
+				statement1.M(state);
+			}
+		} else {
+			Val boolExpr = expr.Eval(state);
+			if(((BoolVal)boolExpr).val) {
+				statement1.M(state);
+			} else {
+				statement2.M(state);
+			}
+		}
+		
 	}
 }

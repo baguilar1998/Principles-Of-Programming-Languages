@@ -31,6 +31,7 @@ public class BoolPrimary {
 		} else {
 			eVal1 = e1.Eval(state, val);
 			Val eVal2 = e2.Eval(state, val);
+			//System.out.println(eVal1 + " " + eVal2);
 			BoolVal boolVal;
 			Class operator = op.getClass();
 			// Evaluate ==
