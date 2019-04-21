@@ -28,11 +28,13 @@ class SubTermItem extends TermItem
 		Class termClass = termVal.getClass();
 		Class    eClass =    eVal.getClass();
 
+		// Case: where termVal is a boolean value
 		if(termVal instanceof BoolVal) {
 			IO.displayln("Error: - operator cannot be applied to " + termVal);
 			return null;
 		}
 		
+		// Case: where eVal is a boolean value
 		if(eVal instanceof BoolVal) {
 			IO.displayln("Error: - operator cannot be applied to " + eVal);
 			return null;

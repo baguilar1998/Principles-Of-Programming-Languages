@@ -17,11 +17,28 @@ public class FuncCall {
 	}
 	
 	Val Eval(HashMap<String,Val> state, Val eVal) {
+		
+		// Create a new state for the function call
 		HashMap<String,Val> functionState = new HashMap<String,Val>();
+		
+		// Get the function that we are trying to call
 		FuncDef funcDef = Parser.funcDefMap.get(funcName.id.id);
+		
+		// Case: if the function that the user is trying to call does not exist
+		if (funcDef == null) {
+			IO.displayln("Error: "+ funcName.id.id +"function is undefined");
+			return null;
+		}
+		
+		// If there are parameters inside the function
 		if(exprList!=null) {
+			// Store all current variables that we have into function state for parameter evaluation
 			for(String p: state.keySet()) functionState.put(p,state.get(p));
+			
+			// Evaluate each expression
 			exprList.M(functionState);
+			
+			// Map each parameter now to it's actual parameter name
 			LinkedList<Parameter> list = funcDef.head.parameterList.parameterList;
 			int counter =1;
 			for(Parameter p: list) {
@@ -33,12 +50,18 @@ public class FuncCall {
 				functionState.put(actualParam, temp);
 				++counter;
 			}
-
 		}
 
+		// Add the returnVal to the function state
 		functionState.put("returnVal", null);
+		
+		// Evaluate the function
 		funcDef.body.M(functionState);
+		
+		// Get the return value of the function call
 		Val returnVal = functionState.get("returnVal");
+		
+		// Return the value
 		return returnVal;
 	}
 }
