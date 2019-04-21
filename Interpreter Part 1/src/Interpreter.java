@@ -22,12 +22,13 @@ public abstract class Interpreter extends Parser
 				Body body = funDef.body;  // get the body of main function
 				HashMap<String,Val> newState = new HashMap<String,Val>();
 				body.M(newState);
-				//System.out.print(Parser.funcDefMap);
 			}
-			else
-				System.out.println( "Error: main function is undefined" );
+			else {
+				IO.displayln("Error: main function is undefined");
+			}
 		}
 
 		closeIO();
+		System.out.println("Success");
 	}
 }

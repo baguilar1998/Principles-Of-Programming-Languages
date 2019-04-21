@@ -22,12 +22,10 @@ public class VarPrimary extends Primary{
 			return null;
 			
 		}else if(var.getClass() == IdVar.class) {
-			//System.out.print(((IdVar)var).id.id + " ");
-			//System.out.println(state.get(((IdVar)var).id.id));
-			//System.out.println(state);
 			Val value = state.get(((IdVar)var).id.id);
 			if(value == null) {
-				System.out.println("variable " + ((IdVar)var).id.id + " does not exist");
+				IO.displayln("variable " + ((IdVar)var).id.id + " does not exist");
+				
 				return null;
 			}
 			return value.cloneVal();

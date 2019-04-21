@@ -21,7 +21,6 @@ class SubTermItem extends TermItem
 	@Override
 	Val Eval(HashMap<String, Val> state, Val eVal) {
 		Val termVal = term.Eval(state, eVal);
-		//System.out.println(eVal + " " + termVal);
 		if ( termVal == null || eVal == null )
 			return null;
 		
@@ -30,19 +29,18 @@ class SubTermItem extends TermItem
 		Class    eClass =    eVal.getClass();
 
 		if(termVal instanceof BoolVal) {
-			System.out.println("Error: - operator cannot be applied to " + termVal);
+			IO.displayln("Error: - operator cannot be applied to " + termVal);
 			return null;
 		}
 		
 		if(eVal instanceof BoolVal) {
-			System.out.println("Error: - operator cannot be applied to " + eVal);
+			IO.displayln("Error: - operator cannot be applied to " + eVal);
 			return null;
 		}
 		
 		if ( termClass == IntVal.class && eClass == IntVal.class )
 		{
 			((IntVal)termVal).val = ((IntVal)eVal).val - ((IntVal)termVal).val;
-			//System.out.println(state);
 			return termVal;
 		}
 		else if ( termClass == IntVal.class ) // eClass == FloatVal.class

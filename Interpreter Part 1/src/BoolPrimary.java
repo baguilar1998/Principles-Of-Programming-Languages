@@ -31,18 +31,18 @@ public class BoolPrimary {
 		} else {
 			eVal1 = e1.Eval(state, val);
 			Val eVal2 = e2.Eval(state, val);
-			//System.out.println(eVal1 + " " + eVal2);
 			BoolVal boolVal;
 			Class operator = op.getClass();
+			
 			// Evaluate ==
 			if(operator == Eq.class) {
 				//Invalid Cases
 				if(eVal1.getClass() == BoolVal.class && eVal2.getClass() != BoolVal.class) {
-					System.out.println("Error: == operator cannot be applied to ["+eVal1+","+eVal2+"]");
+					IO.displayln("Error: == operator cannot be applied to ["+eVal1+","+eVal2+"]");
 					return null;
 				}
 				if(eVal1.getClass() != BoolVal.class && eVal2.getClass() == BoolVal.class) {
-					System.out.println("Error: == operator cannot be applied to ["+eVal1+","+eVal2+"]");
+					IO.displayln("Error: == operator cannot be applied to ["+eVal1+","+eVal2+"]");
 					return null;
 				}
 				// Case where both eval values are boolean
@@ -55,15 +55,15 @@ public class BoolPrimary {
 					return boolVal;
 				}
 			}
+			
 			// Evaluate !=
 			else if (operator == NotEq.class) {
 				//Invalid Cases
 				if(eVal1.getClass() == BoolVal.class && eVal2.getClass() != BoolVal.class) {
-					System.out.println("Error: != operator cannot be applied to ["+eVal1+","+eVal2+"]");
 					return null;
 				}
 				if(eVal1.getClass() != BoolVal.class && eVal2.getClass() == BoolVal.class) {
-					System.out.println("Error: != operator cannot be applied to ["+eVal1+","+eVal2+"]");
+					IO.displayln("Error: != operator cannot be applied to ["+eVal1+","+eVal2+"]");
 					return null;
 				}
 				// Case where both eval values are boolean
@@ -77,59 +77,63 @@ public class BoolPrimary {
 				}
 
 			}
+			
 			// Evaluate <
 			else if(operator == Lt.class) {
 				//Invalid Cases
 				if(eVal1.getClass() == BoolVal.class && eVal2.getClass() != BoolVal.class) {
-					System.out.println("Error: < operator cannot be applied to ["+eVal1+","+eVal2+"]");
+					IO.displayln("Error: < operator cannot be applied to ["+eVal1+","+eVal2+"]");
 					return null;
 				}
 				if(eVal1.getClass() != BoolVal.class && eVal2.getClass() == BoolVal.class) {
-					System.out.println("Error: < operator cannot be applied to ["+eVal1+","+eVal2+"]");
+					IO.displayln("Error: < operator cannot be applied to ["+eVal1+","+eVal2+"]");
 					return null;
 				}
 				boolVal = new BoolVal((eVal1).floatVal() < (eVal2).floatVal());
 				return boolVal;
 			}
+			
 			// Evaluate <=
 			else if(operator == Le.class) {
 				//Invalid Cases
 				if(eVal1.getClass() == BoolVal.class && eVal2.getClass() != BoolVal.class) {
-					System.out.println("Error: <= operator cannot be applied to ["+eVal1+","+eVal2+"]");
+					IO.displayln("Error: <= operator cannot be applied to ["+eVal1+","+eVal2+"]");
 					return null;
 				}
 				if(eVal1.getClass() != BoolVal.class && eVal2.getClass() == BoolVal.class) {
-					System.out.println("Error: <= operator cannot be applied to ["+eVal1+","+eVal2+"]");
+					IO.displayln("Error: <= operator cannot be applied to ["+eVal1+","+eVal2+"]");
 					return null;
 				}
 				boolVal = new BoolVal((eVal1).floatVal() <= (eVal2).floatVal());
 				return boolVal;
 
 			}
+			
 			//Evaluate >
 			else if(operator == Gt.class) {
 				//Invalid Cases
 				if(eVal1.getClass() == BoolVal.class && eVal2.getClass() != BoolVal.class) {
-					System.out.println("Error: > operator cannot be applied to ["+eVal1+","+eVal2+"]");
+					IO.displayln("Error: > operator cannot be applied to ["+eVal1+","+eVal2+"]");
 					return null;
 				}
 				if(eVal1.getClass() != BoolVal.class && eVal2.getClass() == BoolVal.class) {
-					System.out.println("Error: > operator cannot be applied to ["+eVal1+","+eVal2+"]");
+					IO.displayln("Error: > operator cannot be applied to ["+eVal1+","+eVal2+"]");
 					return null;
 				}
 				boolVal = new BoolVal((eVal1).floatVal() > (eVal2).floatVal());
 				return boolVal;
 
 			}
+			
 			// Evaluate >=
 			else {
 				//Invalid Cases
 				if(eVal1.getClass() == BoolVal.class && eVal2.getClass() != BoolVal.class) {
-					System.out.println("Error: >= operator cannot be applied to ["+eVal1+","+eVal2+"]");
+					IO.displayln("Error: >= operator cannot be applied to ["+eVal1+","+eVal2+"]");
 					return null;
 				}
 				if(eVal1.getClass() != BoolVal.class && eVal2.getClass() == BoolVal.class) {
-					System.out.println("Error: >= operator cannot be applied to ["+eVal1+","+eVal2+"]");
+					IO.displayln("Error: >= operator cannot be applied to ["+eVal1+","+eVal2+"]");
 					return null;
 				}
 				boolVal = new BoolVal((eVal1).floatVal() >= (eVal2).floatVal());

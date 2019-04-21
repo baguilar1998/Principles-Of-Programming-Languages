@@ -18,7 +18,7 @@ public class NegPrimary extends Primary{
 		Val neg = primary.Eval(state, eVal);
 		
 		if(neg instanceof BoolVal) {
-			System.out.println("Error: unary - operator cannot be applied to " + neg);
+			IO.displayln("Error: unary - operator cannot be applied to " + neg);
 			return null;
 		}
 		

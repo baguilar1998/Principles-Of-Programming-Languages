@@ -21,7 +21,10 @@ public class NeqPrimary extends Primary{
 		if(not.getClass() == BoolVal.class) {
 			((BoolVal)not).val =  !((BoolVal)not).val;
 			return not;
+		} else {
+			IO.displayln("Error: ! operator cannot be applied to " + not);
+			return null;
 		}
-		return null;
+
 	}
 }

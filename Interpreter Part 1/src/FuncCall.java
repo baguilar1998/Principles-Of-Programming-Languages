@@ -16,19 +16,12 @@ public class FuncCall {
 		if(exprList!=null)exprList.printParseTree(indent1);
 	}
 	
-	/**
-	 * WORK ON THIS FUNCTION
-	 * @param state current program state
-	 */
 	Val Eval(HashMap<String,Val> state, Val eVal) {
 		HashMap<String,Val> functionState = new HashMap<String,Val>();
 		FuncDef funcDef = Parser.funcDefMap.get(funcName.id.id);
-		//System.out.println(eVal + " CURRENT EVAL");
 		if(exprList!=null) {
 			for(String p: state.keySet()) functionState.put(p,state.get(p));
-			//System.out.println(functionState + " BEFORE FUNC EVAL");
 			exprList.M(functionState);
-			//System.out.println(functionState + "AFTER FUNC EVAL");
 			LinkedList<Parameter> list = funcDef.head.parameterList.parameterList;
 			int counter =1;
 			for(Parameter p: list) {
@@ -44,14 +37,8 @@ public class FuncCall {
 		}
 
 		functionState.put("returnVal", null);
-		//System.out.println(functionState);
 		funcDef.body.M(functionState);
-		// Get the return val of the functionState hashmap and add it to your current program state
-		//System.out.println(functionState + " WITH RETURN VAL");
 		Val returnVal = functionState.get("returnVal");
-		if(returnVal == null) {
-			System.out.println("returnVal does not have a value");
-		}
 		return returnVal;
 	}
 }

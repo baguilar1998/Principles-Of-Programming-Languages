@@ -30,12 +30,12 @@ class MulPrimaryItem extends PrimaryItem
 		Class    eClass =    eVal.getClass();
 
 		if(termVal instanceof BoolVal) {
-			System.out.println("Error: * operator cannot be applied to " + termVal);
+			IO.displayln("Error: * operator cannot be applied to " + termVal);
 			return null;
 		}
 		
 		if(eVal instanceof BoolVal) {
-			System.out.println("Error: * operator cannot be applied to " + eVal);
+			IO.displayln("Error: * operator cannot be applied to " + eVal);
 			return null;
 		}
 		
