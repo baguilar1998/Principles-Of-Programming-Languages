@@ -17,6 +17,12 @@ public class NegPrimary extends Primary{
 	Val Eval(HashMap<String, Val> state, Val eVal) {
 		Val neg = primary.Eval(state, eVal);
 		
+		if(neg instanceof BoolVal) {
+			System.out.println("Error: unary - operator cannot be applied to " + neg);
+			return null;
+		}
+		
+		
 		Class negClass = neg.getClass();
 		
 		if(negClass == IntVal.class) {

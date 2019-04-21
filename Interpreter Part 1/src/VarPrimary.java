@@ -26,6 +26,10 @@ public class VarPrimary extends Primary{
 			//System.out.println(state.get(((IdVar)var).id.id));
 			//System.out.println(state);
 			Val value = state.get(((IdVar)var).id.id);
+			if(value == null) {
+				System.out.println("variable " + ((IdVar)var).id.id + " does not exist");
+				return null;
+			}
 			return value.cloneVal();
 		}
 		return null;

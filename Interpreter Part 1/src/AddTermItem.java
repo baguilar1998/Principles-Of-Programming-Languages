@@ -29,6 +29,16 @@ class AddTermItem extends TermItem
 		Class termClass = termVal.getClass();
 		Class    eClass =    eVal.getClass();
 
+		if(termVal instanceof BoolVal) {
+			System.out.println("Error: + operator cannot be applied to " + termVal);
+			return null;
+		}
+		
+		if(eVal instanceof BoolVal) {
+			System.out.println("Error: + operator cannot be applied to " + eVal);
+			return null;
+		}
+		
 		if ( termClass == IntVal.class && eClass == IntVal.class )
 		{
 			((IntVal)termVal).val = ((IntVal)termVal).val + ((IntVal)eVal).val;
@@ -36,8 +46,8 @@ class AddTermItem extends TermItem
 		}
 		else if ( termClass == IntVal.class ) // eClass == FloatVal.class
 		{
-			((FloatVal)termVal).val = ((IntVal)termVal).val + ((FloatVal)eVal).val;
-			return termVal;
+			FloatVal newVal = new FloatVal(((IntVal)termVal).val + ((FloatVal)eVal).val);
+			return newVal;
 		}
 		else // termClass == FloatVal.class
 		{

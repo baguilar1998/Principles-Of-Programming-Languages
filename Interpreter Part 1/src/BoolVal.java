@@ -9,13 +9,15 @@ public class BoolVal extends Val{
 	@Override
 	Val cloneVal() {
 		// TODO Auto-generated method stub
-		return null;
+		return new BoolVal(val);
+		
 	}
 
 	@Override
 	double floatVal() {
 		// TODO Auto-generated method stub
-		return 0;
+		if(val)return 1.0;
+		return 0.0;
 	}
 
 	@Override
@@ -31,7 +33,7 @@ public class BoolVal extends Val{
 	}
 	
 	public String toString() {
-		return val+" ";
+		return val+"";
 	}
 
 }

@@ -34,6 +34,7 @@ public class FuncCall {
 			for(Parameter p: list) {
 				String tempParam = "e"+counter;
 				Val temp = functionState.get(tempParam);
+				if(temp == null)return null;
 				functionState.remove(tempParam);
 				String actualParam = p.id.id;
 				functionState.put(actualParam, temp);
@@ -47,6 +48,10 @@ public class FuncCall {
 		funcDef.body.M(functionState);
 		// Get the return val of the functionState hashmap and add it to your current program state
 		//System.out.println(functionState + " WITH RETURN VAL");
-		return functionState.get("returnVal");
+		Val returnVal = functionState.get("returnVal");
+		if(returnVal == null) {
+			System.out.println("returnVal does not have a value");
+		}
+		return returnVal;
 	}
 }

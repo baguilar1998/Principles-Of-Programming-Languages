@@ -21,7 +21,6 @@ public class ExprList {
 		for(Expr e: exprList) {
 			expr = e.Eval(state);
 			if(expr == null) {
-				System.out.println("Error occured");
 				return;
 			}
 			state.put("e" +counter, expr);

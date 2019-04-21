@@ -29,6 +29,17 @@ class DivPrimaryItem extends PrimaryItem
 		Class termClass = termVal.getClass();
 		Class    eClass =    eVal.getClass();
 
+		if(termVal instanceof BoolVal) {
+			System.out.println("Error: / operator cannot be applied to " + termVal);
+			return null;
+		}
+		
+		if(eVal instanceof BoolVal) {
+			System.out.println("Error: / operator cannot be applied to " + eVal);
+			return null;
+		}
+		
+		
 		if ( termClass == IntVal.class && eClass == IntVal.class )
 		{
 			if(((IntVal)termVal).isZero()) {
@@ -44,8 +55,8 @@ class DivPrimaryItem extends PrimaryItem
 				System.out.println("Error: divison by 0");
 				return null;
 			}
-			((FloatVal)termVal).val = ((IntVal)eVal).val / ((FloatVal)termVal).val;
-			return termVal;
+			FloatVal newVal = new FloatVal(((IntVal)termVal).val / ((FloatVal)eVal).val);
+			return newVal;
 		}
 		else // termClass == FloatVal.class
 		{

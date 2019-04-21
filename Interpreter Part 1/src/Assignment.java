@@ -24,7 +24,6 @@ public class Assignment extends Statement {
 	void M(HashMap<String, Val> state) {
 		Val eVal = rightSide.Eval(state);
 		if(eVal == null) {
-			System.out.println("Expression error occured for assignment");
 			return;
 		}
 		

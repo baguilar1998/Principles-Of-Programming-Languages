@@ -16,7 +16,7 @@ public class FuncCallStatement extends Statement {
 	}
 
 	void M(HashMap<String, Val> state) {
-		return;
+		funcCall.Eval(state,null);
 		
 	}
 }

@@ -17,6 +17,15 @@ public class AndBoolPrimaryItem extends BoolPrimaryItem{
 		Class termClass = termVal.getClass();
 		Class eClass = eVal.getClass();
 		
+		if(termClass != BoolVal.class && eClass == BoolVal.class) {
+			System.out.println("Error: && operator cannot be applied to " + termVal);
+			return null;
+		}
+		
+		if(termClass == BoolVal.class && eClass != BoolVal.class) {
+			System.out.println("Error: && operator cannot be applied to " + eVal);
+			return null;
+		}
 		((BoolVal)termVal).val = ((BoolVal)termVal).val && ((BoolVal)eVal).val;
 		return termVal;
 
