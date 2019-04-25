@@ -1,60 +1,42 @@
-arithExample(x1, x2, x3, x4, x5)
-{
-	returnVal = (x1 + x2 + x3 + x4 + x5) * (x1 - x2 - x3 - x4 - x5) * (x1 / x2 / x3 / x4 / x5);
+whileTest(n){
+	i = 1;
+	while(i<=n){
+		print i;
+		i = i + 1;
+	}
 }
 
-false()
-{
-	returnVal = 0 < 0;
+add(x,y) {
+ 	returnVal = x + y;
 }
 
-true()
-{
-	returnVal = 0 == 0;
+condTest(e1){
+	if(e1 == 10) {
+		returnVal = 10;
+	} else {
+		returnVal = -10;
+	}
+}
+
+isEqual(a,b){
+	x = a==b;
+	returnVal = x;
 }
 
 main()
 {
-	x = 1;
-	print x;
-	x = 1.1;
-	print x;
-	x = 0 == 0;
-	print x;
-	print y;
-	print 1+2+3+4+5+6+7+8+9+10.0;
-	print 5/3;
-	print (9.0*8)/(9.0*7);
-	print (2 < 3) < (5 >= 3.4);
-	print (2 < 3) <= (5 >= 8.4);
-	print (2 < 3) > (2 != 3);
-	print (2 < 3) > (2 == 3);
-	print false()+2+3+4+5+6+7+8+9+10;
-	print 1+2+3+4+5+6+7+8+9+true();
-	print 1+2+3+4+false()+6+7+8+9+10;
-	print false()-2-3-4-5-6-7-8-9-10;
-	print 1-2-3-4-5-6-7-8-9-true();
-	print 1-2-3-4-false()-6-7-8-9-10;
-	print false()*2*3*4*5*6*7*8*9*10;
-	print 1*2*3*4*5*6*7*8*9*true();
-	print 1*2*3*4*false()*6*7*8*9*10;
-	print false()/2;
-	print 1/true();
-	print 2/1/false();
-	print -false();
-	print 5.0 < (2 < 3);
-	print (2 < 3) <= 5;
-	print 5.0 > (2 < 3);
-	print (2 < 3) >= 5;
-	print 5.0 == (2 < 3);
-	print (2 < 3) != 5;
-	print 1 || true() || true();
-	print true() || 1 || true();
-	print true() || true() || 1;
-	print 1 && false() && false();
-	print false() && 1 && false();
-	print false() && false() && 1;
-	print !1;
-	print arithExample(1, 2, 3, 4, false());
-	print arithExample(1, 2, 3, 4, y);
+	whileTest(10);
+	print add(10,10);
+	print add(12==12,10);
+	print add(40,12!=12);
+	print condTest(12);
+	print functionDoesNotExist(100);
+	print isEqual(1,1);
+	print isEqual(x,2);
+	x = 12;
+	y = 13;
+	print isEqual(10,20==20);
+	print isEqual(x,y);
+	y = 12;
+	print isEqual(x,y);	
 }

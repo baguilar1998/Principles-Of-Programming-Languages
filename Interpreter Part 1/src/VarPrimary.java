@@ -30,7 +30,6 @@ public class VarPrimary extends Primary{
 			// Case: when the variable does not exist
 			if(value == null) {
 				IO.displayln("variable " + ((IdVar)var).id.id + " does not exist");
-				
 				return null;
 			}
 			

@@ -17,7 +17,10 @@ public class FuncCallPrimary extends Primary{
 	
 	@Override
 	Val Eval(HashMap<String, Val> state, Val eVal) {
-		return funcCall.Eval(state,eVal);
+		Val funCall = funcCall.Eval(state,eVal);
+		if(funCall == null)return null;
+		else if(funCall.getClass() == NullVal.class) IO.displayln("returnVal does not have a value");
+		return funCall;
 	}
 
 }

@@ -20,9 +20,6 @@ public class ExprList {
 		int counter = 1;
 		for(Expr e: exprList) {
 			expr = e.Eval(state);
-			if(expr == null) {
-				return;
-			}
 			state.put("e" +counter, expr);
 			++counter;
 		}

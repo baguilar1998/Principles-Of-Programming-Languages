@@ -60,7 +60,7 @@ public class FuncCall {
 		
 		// Get the return value of the function call
 		Val returnVal = functionState.get("returnVal");
-		
+		if(returnVal == null)return new NullVal();
 		// Return the value
 		return returnVal;
 	}

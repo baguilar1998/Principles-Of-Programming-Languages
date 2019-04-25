@@ -1,40 +1,23 @@
 1
-1.1
-true
-variable y does not exist
-55.0
-1
-1.1428571428571428
-false
-false
-false
-true
-Error: + operator cannot be applied to false
+2
+3
+4
+5
+6
+7
+8
+9
+10
+20
 Error: + operator cannot be applied to true
+returnVal does not have a value
 Error: + operator cannot be applied to false
-Error: - operator cannot be applied to false
-Error: - operator cannot be applied to true
-Error: - operator cannot be applied to false
-Error: * operator cannot be applied to false
-Error: * operator cannot be applied to true
-Error: * operator cannot be applied to false
-Error: / operator cannot be applied to false
-Error: / operator cannot be applied to true
-Error: / operator cannot be applied to false
-Error: unary - operator cannot be applied to false
-Error: < operator cannot be applied to [5.0,true]
-Error: <= operator cannot be applied to [true,5]
-Error: > operator cannot be applied to [5.0,true]
-Error: >= operator cannot be applied to [true,5]
-Error: == operator cannot be applied to [5.0,true]
-Error: || operator cannot be applied to 1
-Error: || operator cannot be applied to 1
-Error: || operator cannot be applied to 1
-Error: && operator cannot be applied to 1
-Error: && operator cannot be applied to 1
-Error: && operator cannot be applied to 1
-Error: ! operator cannot be applied to 1
-Error: + operator cannot be applied to false
-Error: - operator cannot be applied to false
-Error: / operator cannot be applied to false
-variable y does not exist
+returnVal does not have a value
+-10
+Error: functionDoesNotExistfunction is undefined
+true
+variable x does not exist
+Error: == operator cannot be applied to [10,true]
+12
+false
+true

@@ -19,9 +19,9 @@ public class Print extends Statement{
 	void M(HashMap<String,Val> state) {
 		Val eVal = expr.Eval(state);
 		 if(eVal != null ) {
+			 if(eVal.getClass() == NullVal.class)return;
 			IO.displayln(eVal.toString());
 		 } else {
-			// System.out.println("Got a null value");
 			 return;
 		 }
 	}

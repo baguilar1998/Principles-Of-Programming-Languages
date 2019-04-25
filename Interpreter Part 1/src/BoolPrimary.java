@@ -60,6 +60,7 @@ public class BoolPrimary {
 			else if (operator == NotEq.class) {
 				//Invalid Cases
 				if(eVal1.getClass() == BoolVal.class && eVal2.getClass() != BoolVal.class) {
+					IO.displayln("Error: != operator cannot be applied to ["+eVal1+","+eVal2+"]");
 					return null;
 				}
 				if(eVal1.getClass() != BoolVal.class && eVal2.getClass() == BoolVal.class) {
