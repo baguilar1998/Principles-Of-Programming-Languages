@@ -1,0 +1,3 @@
+array of size list [10, 10, 10]
+array of size list [10]
+7
