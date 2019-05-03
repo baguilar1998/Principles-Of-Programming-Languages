@@ -18,10 +18,6 @@ public class EList {
 		for(EItem e : eList) {
 			Val val = e.Eval(state, null);
 			String tempParam = "e" + counter;
-			while(state.containsKey(tempParam)) {
-				++counter;
-				tempParam = "e" + counter;
-			}
 			state.put(tempParam,val);
 			counter++;
 		}

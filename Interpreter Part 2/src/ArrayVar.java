@@ -25,11 +25,12 @@ public class ArrayVar extends Var{
 	Val Eval(HashMap<String,Val> state) {
 		ArrayVal v = (ArrayVal)state.get(arrayName.id.id);
 		HashMap<String,Val> arrayState = new HashMap<String,Val>();
-		for(String s: state.keySet()) arrayState.put(s, state.get(s));
-		System.out.println(arrayState);
+		for(String s: state.keySet()) {
+			if(s.contains("e"))continue;
+			arrayState.put(s, state.get(s));
+		}
 		eList.M(arrayState);
 		int counter = 1, size = 1;
-		System.out.println(arrayState);
 		Val val;
 		ArrayList<Integer> indices = new ArrayList<>();
 		do {
@@ -50,7 +51,7 @@ public class ArrayVar extends Var{
 	}
 	
 	public int rank(ArrayVal val, ArrayList<Integer> indices) {
-		int rank = 0;
+		int rank = (val.sizeList.get(0) -1) - indices.get(0);
 		for(int k = 1; k < val.sizeList.size(); k++) {
 			int a = 0;
 			int b = val.sizeList.get(k) -1;

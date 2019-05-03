@@ -37,9 +37,10 @@ public class VarPrimary extends Primary{
 			return value.cloneVal();
 		}
 		
+		// Case that it is an array var
 		else if(var.getClass() == ArrayVar.class) {
 			Val arrayObj = ((ArrayVar)var).Eval(state);
-			return arrayObj;
+			return arrayObj.cloneVal();
 		}
 		return null;
 	}

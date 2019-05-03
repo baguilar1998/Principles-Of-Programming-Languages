@@ -65,7 +65,6 @@ public class Assignment extends Statement {
 			
 			int rank = ((ArrayVar) var).rank(arrayVal, indices);
 			arrayVal.a[rank] = eVal;
-			//System.out.println(arrayVal.a[rank]);
 			return;
 		}
 		
