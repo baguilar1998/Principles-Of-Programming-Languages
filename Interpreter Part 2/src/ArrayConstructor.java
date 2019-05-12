@@ -28,10 +28,15 @@ public class ArrayConstructor extends RightSide{
 			if(val == null) {
 				break;
 			} else if (val.getClass() == FloatVal.class || val.getClass() == BoolVal.class) {
-				break;
+				IO.displayln("Error: array size expression evaluated to non-integer: " + val);
+				return null;
+				//break;
 			}
 			int index = ((IntVal)val).val;
-			if(index < 0) return null;
+			if(index < 0) {
+				IO.displayln("Error: array size expression evaluated to non-positive integer: " + index);
+				return null;
+			}
 			arraySize.add(index);
 			size*=index;
 			counter++;

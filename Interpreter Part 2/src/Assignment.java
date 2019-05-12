@@ -36,8 +36,18 @@ public class Assignment extends Statement {
 			state.put(((IdVar)var).id.id, eVal);
 		} else if( varType == ArrayVar.class){
 			String name = ((ArrayVar) var).arrayName.id.id;
-			ArrayVal arrayVal = (ArrayVal) state.get(name);
-			
+			Val value = state.get(name);
+			if(value == null) {
+				IO.displayln("array variable " + name + " does not have a value");
+				//IO.displayln("variable " + name + " has a non-array value: " + eVal);
+				return;
+			}
+			if(value.getClass() != ArrayVal.class) {
+				IO.displayln("variable " + name + " has a non-array value: " + eVal);
+				return;	
+			}
+			ArrayVal arrayVal = (ArrayVal) value;
+
 			HashMap<String,Val> arrayState = new HashMap<String,Val>();
 			for(String s: state.keySet()) arrayState.put(s, state.get(s));
 			
@@ -50,19 +60,22 @@ public class Assignment extends Statement {
 				if(val == null) {
 					break;
 				} else if (val.getClass() == FloatVal.class || val.getClass() == BoolVal.class) {
-					break;
+					IO.displayln("Error: index expression of array test evaluated to non-integer: " + val);
+					return;
 				}
 				int index = ((IntVal)val).val;
 				indices.add(index);
 				counter++;
 			}while(val!=null);
 			
-			for(int i=0;i<arrayVal.sizeList.size(); i++) {
-				int maxIndex = arrayVal.sizeList.get(i) -1;
-				int currentIndex = indices.get(i);
-				if(currentIndex < 0 || currentIndex > maxIndex) return;
+			for(int i=0;i<indices.size();i++) {
+				int index1 = indices.get(i);
+				int index2 = arrayVal.sizeList.get(i) -1;
+				if(index1 < 0 || (index1 > index2) ) {
+					IO.displayln("Error: index value of array test out of range: " + index1);
+					return;
+				}
 			}
-			
 			int rank = ((ArrayVar) var).rank(arrayVal, indices);
 			arrayVal.a[rank] = eVal;
 			return;
